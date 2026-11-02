@@ -135,6 +135,7 @@ h2{font:600 34px/1.05 Caveat,cursive;margin:4px 0 8px;color:var(--navy)}
 .qbtns button{background:#fff;border:0;border-radius:6px;padding:12px;font-size:20px;box-shadow:inset 0 0 0 2px var(--line)}
 .qbtns button.sel{box-shadow:inset 0 0 0 2px var(--coral);color:var(--coral)}
 .qbtns button:disabled{cursor:default}
+.qbtns button.errada{opacity:.45;text-decoration:line-through}
 
 /* raspadinha */
 .scr{position:relative;width:100%;aspect-ratio:3/4;border-radius:3px;overflow:hidden}
@@ -884,22 +885,33 @@ function puntaCana(host, done) {
 
 function quemEhMais(host, done) {
   const qs = [
-    { q: 'Quem dorme primeiro no meio do filme?', r: ['Pelo menos é sincera 😂', 'Calúnia! ...tá, às vezes 😴', 'E até hoje ninguém sabe o final do filme 🎬'] },
-    { q: 'Quem rouba o cobertor de madrugada?', r: ['Eu sabia!! Exijo reparação em forma de beijo 😤💋', 'Mentira, eu sou um anjo dormindo 😇', 'Guerra fria. Literalmente 🥶'] },
-    { q: 'Quem disse "te amo" primeiro?', r: ['Siiim! No estacionamento do Village, sem querer 😳❤️', 'Hmm... tenta lembrar do estacionamento do Village 😏', 'Hoje a gente diz junto. Mas o primeiro foi seu 😏❤️'] },
-    { q: 'Quem escolhe onde a gente vai comer?', r: ['E quase sempre acerta 🍽️', 'Depois de 40 minutos de "tanto faz" 😂', 'Depois de 40 minutos de "escolhe você" 😂'] },
-    { q: 'Quem ama mais?', r: ['Discordo. Mas aceito disputar isso pelos próximos 50 anos ❤️', 'Finalmente admitiu 😏❤️', 'Resposta certíssima ❤️'] },
+    { q: 'Quem dorme primeiro no meio do filme?', ok: 2, r: ['Só você? Tenho minhas dúvidas 😂', 'Calúnia! ...tá, mas você também dorme 😴', 'Isso! E até hoje ninguém sabe o final do filme 🎬'] },
+    { q: 'Quem rouba o cobertor de madrugada?', ok: 0, r: ['Eu sabia!! Exijo reparação em forma de beijo 😤💋', 'Mentira, eu sou um anjo dormindo 😇', 'Nada disso, quem acorda descoberto sou eu 🥶'] },
+    { q: 'Quem disse "te amo" primeiro?', ok: 0, r: ['Siiim! No estacionamento do Village, sem querer 😳❤️', 'Hmm... lembra do estacionamento do Village? 😏', 'Hoje a gente diz junto. Mas o primeiro foi seu 😏'] },
+    { q: 'Quem escolhe onde a gente vai comer?', ok: 1, r: ['Depois de 40 minutos de "tanto faz"? 😂', 'Isso! Depois de 40 minutos de "tanto faz, escolhe você" 😂', 'Bonito... mas quem decide sou eu 😂'] },
+    { q: 'Quem ama mais?', ok: 2, r: ['Discordo. Mas aceito disputar isso pelos próximos 50 anos ❤️', 'Fofo... mas aqui é empate ❤️', 'Resposta certíssima ❤️'] },
   ];
   let i = 0;
   const render = () => {
     const q = qs[i];
     host.innerHTML = `<p class="kicker">quem é mais...? · ${i + 1}/${qs.length}</p><h2>${q.q}</h2>
       <div class="qbtns">${['Eu 🙋‍♀️', 'O Biel 🙋‍♂️', 'Nós dois 👫'].map((t, j) => `<button data-j="${j}">${t}</button>`).join('')}</div><p class="cap"></p>`;
-    host.querySelectorAll('.qbtns button').forEach(b => b.onclick = () => {
-      host.querySelectorAll('.qbtns button').forEach(x => { x.disabled = true; x.classList.toggle('sel', x === b); });
-      host.querySelector('.cap').textContent = q.r[+b.dataset.j];
-      const nx = el(`<button class="next">→</button>`); host.appendChild(nx);
-      nx.onclick = () => { i++; if (i < qs.length) render(); else { host.innerHTML = '<p class="cap center">Respostas anotadas. <b>Vou usar contra você depois 😂</b></p>'; done(); } };
+    const cap = host.querySelector('.cap'), btns = host.querySelectorAll('.qbtns button');
+    let duvida = null;
+    btns.forEach(b => b.onclick = () => {
+      const j = +b.dataset.j;
+      if (j === q.ok) {
+        btns.forEach(x => { x.disabled = true; x.classList.toggle('sel', x === b); });
+        cap.textContent = q.r[j]; hearts(b, 4);
+        const nx = el(`<button class="next">→</button>`); host.appendChild(nx);
+        nx.onclick = () => { i++; if (i < qs.length) render(); else { host.innerHTML = '<p class="cap center">Viu só? <b>A gente se conhece demais ❤️</b></p>'; done(); } };
+      } else if (duvida !== b) {
+        duvida = b; b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake');
+        cap.textContent = 'Tem certeza? 👀';
+      } else {
+        duvida = null; b.disabled = true; b.classList.add('errada');
+        cap.textContent = q.r[j];
+      }
     });
   };
   render();
@@ -971,7 +983,7 @@ function final() {
   };
   no.addEventListener('pointerenter', flee); no.addEventListener('pointerdown', flee); no.addEventListener('click', flee);
   app.querySelector('.yes').onclick = () => {
-    const o = el(`<div class="overlay"><div class="box">${EMB.fim.replace('class="emb"', 'class="emb" style="width:120px"')}<h2>Combinado!</h2><p>Próxima parada: bodas de ouro.<br>Feliz 5 anos, Sah. Te amo infinito ❤️</p><button class="act">fechar</button></div></div>`);
+    const o = el(`<div class="overlay"><div class="box">${EMB.fim.replace('class="emb"', 'class="emb" style="width:120px"')}<h2>Combinado!</h2><p>Próxima parada: bodas de ouro.<br>Feliz 5 anos, Sah. Te amo mais que tudo ao quadrado ao infinito ao cubo ❤️</p><button class="act">fechar</button></div></div>`);
     document.body.appendChild(o); o.querySelector('button').onclick = () => o.remove();
     for (let i = 0; i < 5; i++) setTimeout(() => hearts(o.querySelector('.box'), 8), i * 350);
   };
