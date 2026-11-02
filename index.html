@@ -352,7 +352,7 @@ if (location.hash === '#reset') { S = { done: [] }; save(); history.replaceState
 if (location.hash === '#tudo') { S = { done: CAPS.map(c => c.id) }; save(); history.replaceState(null, '', location.pathname); }
 
 function show(html) { clearTimers(); app.innerHTML = html; window.scrollTo(0, 0); }
-const top = label => `<header class="top"><button class="back" data-act="map">← mapa</button><span class="pill">${label}</span></header>`;
+const bar = label => `<header class="top"><button class="back" data-act="map">← mapa</button><span class="pill">${label}</span></header>`;
 app.addEventListener('click', e => { if (e.target.closest('[data-act="map"]')) map(); });
 
 let toastT;
@@ -472,7 +472,7 @@ function map(novo = -1) {
 
 function capa(i) {
   const c = CAPS[i];
-  show(`${top(`Capítulo ${i + 1}`)}
+  show(`${bar(`Capítulo ${i + 1}`)}
     <div class="cover"><img src="${F(c.capa)}" alt="">
       <div class="shade"><p class="kicker">Capítulo ${i + 1} · ${c.ano}</p><h1>${c.titulo}</h1><p>${c.sub}</p></div>
     </div>
@@ -484,7 +484,7 @@ function capa(i) {
 function carta(i) {
   const c = CAPS[i], ultimo = i === CAPS.length - 1;
   burst(innerWidth / 2, innerHeight / 3, 40);
-  show(`${top(`Capítulo ${i + 1} ✓`)}
+  show(`${bar(`Capítulo ${i + 1} ✓`)}
     <p class="kicker center">Uma carta pra você 💌</p>
     <figure class="polaroid"><img src="${F(c.carta.foto)}" alt=""><figcaption>${c.carta.legenda}</figcaption></figure>
     <article class="letter">${paras(c.carta.texto)}<p class="sign">— ${ELE}</p></article>
@@ -499,7 +499,7 @@ function quiz({ perguntas }, done) {
   function render() {
     const q = perguntas[i];
     const opts = shuffle(q.op.map((o, j) => ({ o, j })));
-    show(`${top(`Pergunta ${i + 1}/${perguntas.length}`)}
+    show(`${bar(`Pergunta ${i + 1}/${perguntas.length}`)}
       <section class="card">
         ${q.foto ? `<img class="qphoto" src="${F(q.foto)}" alt="">` : ''}
         <h2>${q.q}</h2>
@@ -519,7 +519,7 @@ function quiz({ perguntas }, done) {
 }
 
 function scratch({ foto, titulo, legenda }, done) {
-  show(`${top('Raspadinha')}
+  show(`${bar('Raspadinha')}
     <section class="card center">
       <h2>${titulo}</h2>
       <div class="scr"><img src="${F(foto)}" alt=""><canvas></canvas></div>
@@ -561,7 +561,7 @@ function scratch({ foto, titulo, legenda }, done) {
 
 function memory({ fotos, legendas }, done) {
   const deck = shuffle([...fotos, ...fotos]);
-  show(`${top('Jogo da memória')}
+  show(`${bar('Jogo da memória')}
     <section class="card">
       <h2>Ache os pares 💞</h2>
       <p class="muted" style="margin:0">Tentativas: <b id="tries">0</b> · Pares: <b id="pairs">0</b>/${fotos.length}</p>
@@ -587,7 +587,7 @@ function memory({ fotos, legendas }, done) {
 
 function ordem({ itens }, done) {
   const view = shuffle(itens.map((it, i) => ({ ...it, i })));
-  show(`${top('Linha do tempo')}
+  show(`${bar('Linha do tempo')}
     <section class="card">
       <h2>Coloca nossa história em ordem 🗓️</h2>
       <p class="muted" style="margin:0">Toque nas fotos da mais antiga pra mais recente.</p>
@@ -615,7 +615,7 @@ function ordem({ itens }, done) {
 }
 
 function cofre({ codigo, pergunta, dicas, slides }, done) {
-  show(`${top('O cofre secreto')}
+  show(`${bar('O cofre secreto')}
     <section class="card center">
       <div class="lock">🔒</div>
       <h2 style="font-size:21px">${pergunta}</h2>
@@ -648,7 +648,7 @@ function cofre({ codigo, pergunta, dicas, slides }, done) {
 
 function slideshow(slides, done) {
   let i = 0;
-  show(`${top('O pedido 💍')}
+  show(`${bar('O pedido 💍')}
     <section class="card center">
       <div class="slides kb">${slides.map((s, k) => `<figure class="${k ? '' : 'on'}"><img src="${F(s.foto)}" alt=""><figcaption>${s.legenda}</figcaption></figure>`).join('')}</div>
       <div class="dots">${slides.map((_, k) => `<i class="${k ? '' : 'on'}"></i>`).join('')}</div>
@@ -669,7 +669,7 @@ function quem({ perguntas }, done) {
   let i = 0; render();
   function render() {
     const q = perguntas[i];
-    show(`${top(`Pergunta ${i + 1}/${perguntas.length}`)}
+    show(`${bar(`Pergunta ${i + 1}/${perguntas.length}`)}
       <section class="card center">
         <p class="kicker">Quem é mais...?</p>
         ${q.foto ? `<img class="qphoto" src="${F(q.foto)}" alt="">` : ''}
@@ -689,7 +689,7 @@ function quem({ perguntas }, done) {
 
 /* ===================== FINAL ===================== */
 function final() {
-  show(`${top('5 anos ❤️')}
+  show(`${bar('5 anos ❤️')}
     <section class="final">
       <p class="kicker center">02.11.2021 → hoje</p>
       <h1 class="big">5 anos</h1>
