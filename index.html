@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#fff6f1">
+<meta name="color-scheme" content="light">
+<title>Nossa Jornada</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff6f1; --ink:#3b1d2a; --muted:#8c6b78; --rose:#e2557a; --rose-d:#b8325a;
+  --wine:#6d1f3c; --gold:#f0b54a; --paper:#fffdf8; --line:#f3d3dc; --ok:#2f9e6b;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%}
+body{
+  background:radial-gradient(120% 60% at 50% 0%,#ffe4ea 0%,var(--bg) 60%) fixed,var(--bg);
+  color:var(--ink);font:400 16px/1.45 Nunito,system-ui,sans-serif;overflow-x:hidden;
+}
+button{font:inherit;color:inherit;touch-action:manipulation;cursor:pointer}
+img{display:block;max-width:100%}
+.hidden{display:none!important}
+#app{position:relative;z-index:1;max-width:480px;margin:0 auto;min-height:100dvh;
+  padding:16px 16px calc(28px + env(safe-area-inset-bottom))}
+#bg-hearts{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+#bg-hearts span{position:absolute;bottom:-40px;color:var(--rose);opacity:.16;animation:rise linear infinite}
+@keyframes rise{to{transform:translateY(-115vh) rotate(25deg)}}
+#fx{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:50}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,30px);
+  background:var(--wine);color:#fff;padding:12px 18px;border-radius:999px;font-weight:700;opacity:0;
+  transition:.3s;z-index:60;max-width:calc(100vw - 32px);text-align:center;box-shadow:0 10px 30px rgba(109,31,60,.3)}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+
+h1,h2{font-family:Fraunces,Georgia,serif;font-weight:700;line-height:1.1;margin:0 0 10px}
+h1{font-size:44px;color:var(--wine)}
+h2{font-size:24px}
+.kicker{font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-size:12px;color:var(--rose);margin:0 0 6px}
+.muted{color:var(--muted)}
+.center{text-align:center}
+.card{background:var(--paper);border-radius:24px;padding:20px;box-shadow:0 12px 34px rgba(109,31,60,.12)}
+
+.btn{display:inline-block;background:var(--rose);color:#fff;border:0;border-radius:999px;padding:15px 28px;
+  font-weight:800;font-size:17px;box-shadow:0 6px 0 var(--rose-d);transition:transform .08s,box-shadow .08s}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 var(--rose-d)}
+.btn.ghost{background:#fff;color:var(--wine);box-shadow:0 6px 0 var(--line)}
+.btn.wide{display:block;width:100%}
+
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.back{background:none;border:0;color:var(--wine);font-weight:800;padding:8px 4px}
+.pill{background:#fff;border-radius:999px;padding:6px 12px;font-weight:800;font-size:13px;color:var(--rose);box-shadow:0 4px 12px rgba(109,31,60,.08)}
+
+/* intro */
+.intro{min-height:calc(100dvh - 44px);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:6px}
+.stack{position:relative;width:230px;height:250px;margin:0 auto 22px}
+.stack figure{position:absolute;margin:0;background:#fff;padding:8px 8px 28px;box-shadow:0 10px 26px rgba(109,31,60,.22);width:150px;
+  animation:drop .7s cubic-bezier(.2,1.4,.4,1) both}
+.stack figure img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.stack figure:nth-child(1){left:0;top:20px;transform:rotate(-10deg)}
+.stack figure:nth-child(2){left:80px;top:0;transform:rotate(8deg);animation-delay:.15s}
+.stack figure:nth-child(3){left:40px;top:60px;transform:rotate(-2deg);animation-delay:.3s}
+@keyframes drop{from{opacity:0;translate:0 -40px}}
+.intro .sub{max-width:300px;margin:0 auto 18px;color:var(--muted);font-size:17px}
+.from{font-family:Caveat,cursive;font-size:24px;color:var(--wine);margin-top:16px}
+
+/* map */
+.maphead{text-align:center;margin:8px 0 4px}
+.prog{height:10px;background:#fff;border-radius:99px;overflow:hidden;margin:10px auto 0;max-width:260px;box-shadow:inset 0 1px 3px rgba(0,0,0,.08)}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--rose),var(--gold));border-radius:99px;transition:width .8s}
+.path{list-style:none;padding:0;margin:22px 0;position:relative}
+.path::before{content:'';position:absolute;left:50%;top:40px;bottom:40px;border-left:3px dashed #f1b3c3;transform:translateX(-50%)}
+.node{display:flex;margin:0 0 20px;position:relative}
+.node:nth-child(even){justify-content:flex-end}
+.node button{position:relative;width:82%;display:flex;align-items:center;gap:12px;background:var(--paper);border:0;border-radius:22px;
+  padding:10px 34px 10px 10px;box-shadow:0 10px 26px rgba(109,31,60,.12);text-align:left}
+.node .thumb{width:66px;height:66px;border-radius:50%;object-fit:cover;border:3px solid var(--rose);flex:none}
+.node .yr{font-weight:800;font-size:12px;letter-spacing:.12em;color:var(--rose)}
+.node b{display:block;font:600 19px/1.15 Fraunces,serif}
+.node small{color:var(--muted);font-size:13px}
+.node .st{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:18px}
+.node.locked button{opacity:.72}
+.node.locked .thumb{filter:grayscale(1) blur(3px);border-color:#d9c3ca}
+.node.done .thumb{border-color:var(--ok)}
+.node.new button{animation:pulse 1.2s ease-in-out 3}
+.node.final button{background:linear-gradient(135deg,var(--rose),var(--wine));color:#fff}
+.node.final small,.node.final .yr{color:#ffd9e2}
+@keyframes pulse{50%{transform:scale(1.05);box-shadow:0 0 0 8px rgba(226,85,122,.18)}}
+.reset{display:block;margin:10px auto 0;background:none;border:0;color:var(--muted);font-size:13px;text-decoration:underline}
+
+/* chapter cover */
+.cover{position:relative;border-radius:26px;overflow:hidden;box-shadow:0 14px 36px rgba(109,31,60,.25)}
+.cover img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.cover .shade{position:absolute;inset:auto 0 0 0;padding:70px 20px 20px;background:linear-gradient(transparent,rgba(40,10,22,.85));color:#fff}
+.cover .shade .kicker{color:#ffc2d1}
+.cover h1{color:#fff;font-size:36px}
+.cover p{margin:0;opacity:.9}
+
+/* quiz */
+.qphoto{width:100%;max-height:300px;object-fit:cover;border-radius:16px;margin-bottom:14px}
+.opt{display:block;width:100%;text-align:left;padding:14px 16px;margin:9px 0;border:2px solid var(--line);border-radius:16px;
+  background:#fff;font-weight:700;font-size:16px;transition:.15s}
+.opt.c{text-align:center}
+.opt:disabled{cursor:default}
+.opt.ok{background:#e4f6ec;border-color:var(--ok);color:#1d6b47}
+.opt.no{background:#fde8ec;border-color:var(--rose);opacity:.6;animation:shake .4s}
+.opt.sel{background:#ffe4ea;border-color:var(--rose)}
+.bubble{background:#ffe9ef;border-radius:18px;padding:14px 16px;margin:14px 0 16px;font-weight:700;color:var(--wine);animation:pop .35s}
+@keyframes shake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+@keyframes pop{from{transform:scale(.85);opacity:0}}
+
+/* scratch */
+.scr{position:relative;width:100%;aspect-ratio:3/4;border-radius:18px;overflow:hidden;margin:12px 0;box-shadow:0 10px 26px rgba(109,31,60,.18)}
+.scr img{width:100%;height:100%;object-fit:cover}
+.scr canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;transition:opacity .8s}
+.scr canvas.gone{opacity:0;pointer-events:none}
+.cap{font-family:Caveat,cursive;font-size:26px;color:var(--wine);margin:6px 0 14px}
+
+/* memory */
+.mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}
+.mcard{aspect-ratio:3/4;perspective:900px;border:0;padding:0;background:none}
+.inner{position:relative;display:block;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.mcard.flip .inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;overflow:hidden}
+.front{background:linear-gradient(135deg,var(--rose),var(--wine));display:grid;place-items:center;color:#ffd0db;font-size:30px;
+  box-shadow:inset 0 0 0 3px rgba(255,255,255,.25)}
+.back{transform:rotateY(180deg);background:#fff}
+.back img{width:100%;height:100%;object-fit:cover}
+.mcard.match .inner{animation:pop .4s}
+.mcard.match .back{box-shadow:0 0 0 3px var(--gold)}
+
+/* order */
+.ogrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+.oitem{position:relative;aspect-ratio:3/4;border-radius:16px;overflow:hidden;border:0;padding:0;background:#eee}
+.oitem img{width:100%;height:100%;object-fit:cover;transition:.2s}
+.oitem.set img{filter:brightness(.55)}
+.oitem.no{animation:shake .4s}
+.badge{position:absolute;inset:0;display:grid;place-items:center;font:700 54px Fraunces,serif;color:#fff;text-shadow:0 4px 16px rgba(0,0,0,.4)}
+.tl{list-style:none;padding:0;margin:16px 0 18px;border-left:3px solid var(--line)}
+.tl li{position:relative;padding:4px 0 10px 18px}
+.tl li::before{content:'';position:absolute;left:-8px;top:9px;width:13px;height:13px;border-radius:50%;background:var(--rose)}
+.tl b{color:var(--rose);display:block;font-size:13px;letter-spacing:.05em}
+
+/* safe */
+.lock{font-size:64px;margin:4px 0 6px;transition:transform .5s}
+.lock.open{transform:scale(1.25) rotate(-12deg)}
+.digits{display:flex;gap:10px;justify-content:center;margin:16px 0 6px}
+.digits.no{animation:shake .4s}
+.digit{width:54px;height:66px;border-radius:14px;background:#fff;border:2px solid var(--line);font:800 30px Nunito;display:grid;place-items:center;color:var(--wine)}
+.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:290px;margin:14px auto 4px}
+.key{height:60px;border-radius:18px;border:0;background:#fff;font-weight:800;font-size:24px;box-shadow:0 4px 0 var(--line)}
+.key:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.key[data-k="♥"]{color:var(--rose)}
+
+/* slides */
+.slides{position:relative;width:100%;aspect-ratio:3/4;border-radius:20px;overflow:hidden;margin:6px 0 14px;background:#2a0f1b}
+.slides figure{position:absolute;inset:0;margin:0;opacity:0;transition:opacity 1s}
+.slides figure.on{opacity:1}
+.slides img{width:100%;height:100%;object-fit:cover}
+.slides.kb figure.on img{animation:kb 7s ease-out both}
+@keyframes kb{from{transform:scale(1.12)}to{transform:scale(1)}}
+.slides figcaption{position:absolute;left:0;right:0;bottom:0;padding:40px 16px 16px;background:linear-gradient(transparent,rgba(40,10,22,.8));
+  color:#fff;font-family:Caveat,cursive;font-size:28px;text-align:center}
+.dots{display:flex;gap:6px;justify-content:center;margin-bottom:14px}
+.dots i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--rose)}
+
+/* letter */
+.polaroid{background:#fff;padding:10px 10px 4px;margin:4px auto 18px;width:78%;box-shadow:0 12px 30px rgba(109,31,60,.2);transform:rotate(-2.5deg)}
+.polaroid img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.polaroid figcaption{font-family:Caveat,cursive;font-size:24px;text-align:center;padding:6px 0 4px;color:var(--wine)}
+.letter{background:var(--paper);border-radius:6px 22px 22px 22px;padding:22px 20px;margin:0 0 20px;
+  font-family:Caveat,cursive;font-size:24px;line-height:1.3;color:#3d2230;
+  background-image:repeating-linear-gradient(transparent 0 30px,#f6dfe5 30px 31px);box-shadow:0 12px 30px rgba(109,31,60,.12)}
+.letter p{margin:0 0 12px}
+.letter .sign{text-align:right;font-weight:700;color:var(--wine);margin:6px 0 0}
+
+/* final */
+.final h1.big{font-size:64px;text-align:center;margin:0}
+.counter{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:8px;margin:16px 0 6px}
+.counter div{background:var(--paper);border-radius:16px;padding:10px 4px;text-align:center;box-shadow:0 8px 20px rgba(109,31,60,.1)}
+.counter b{display:block;font:700 26px Fraunces,serif;color:var(--wine)}
+.counter div:first-child b{font-size:32px;color:var(--rose)}
+.counter span{font-size:12px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+.ask{position:relative;min-height:230px;text-align:center;padding:18px 0}
+.askbtns{display:flex;gap:14px;justify-content:center;margin-top:16px}
+.ask .no{transition:left .25s,top .25s}
+.overlay{position:fixed;inset:0;z-index:40;background:rgba(59,29,42,.55);display:grid;place-items:center;padding:20px;animation:pop .3s}
+.overlay .card{max-width:380px}
+.ring{font-size:70px}
+</style>
+</head>
+<body>
+<div id="bg-hearts" aria-hidden="true"></div>
+<main id="app"></main>
+<div id="toast" role="status"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+<script>
+/* ===================== CONTEÚDO (edite à vontade) ===================== */
+const ELA = 'Sah';
+const ELE = 'Biel';
+const INICIO = new Date('2021-11-02T00:00:00-03:00');
+
+const CAPS = [
+  {
+    id: 'c1', ano: '2021', titulo: 'O primeiro date', sub: 'Village Mall · 02.11.2021', capa: 'primeiro_date_1',
+    jogo: 'Quiz + raspadinha',
+    run: done => quiz({ perguntas: [
+      { q: 'Onde foi o nosso primeiro date?', op: ['Village Mall', 'BarraShopping', 'Rio Sul', 'Shopping Leblon'],
+        ok: 'Isso! Village Mall, 02 de novembro de 2021 ✨' },
+      { q: 'E em qual loja a gente se viu pela primeira vez?', op: ['Renner', 'Zara', 'C&A', 'Livraria'],
+        ok: 'Na Renner! Melhor compra da minha vida e eu nem comprei nada 😂' },
+      { q: 'O que a gente ficou fazendo no terraço do Village?', op: ['Vendo as estrelas', 'Tomando sorvete', 'Jogando Uno', 'Fugindo do segurança'],
+        ok: 'Vendo as estrelas... e eu, olhando pra você ✨' },
+      { q: 'Onde a gente foi jantar depois?', op: ['Outback', 'Madero', 'Coco Bambu', 'McDonald’s'],
+        ok: 'Outback! 🦘' },
+      { q: 'E no estacionamento, na hora da despedida... o que escapou sem querer?', op: ['“Te amo”', '“Tchau, querido”', '“Me liga amanhã”', '“Cadê o ticket?”'],
+        ok: '“Te amo” 😳 Você ficou morrendo de vergonha... e eu, morrendo de amor ❤️' },
+    ]}, () => scratch({ foto: 'primeiro_date_2', titulo: 'Raspa pra ver a gente no dia 1 👆', legenda: 'Nossa primeira foto juntos · 02.11.2021' }, done)),
+    carta: { foto: 'primeiro_date_1', legenda: 'o dia em que tudo começou', texto:
+`${ELA},
+
+02 de novembro de 2021. Eu fui pro Village meio nervoso, te achei na Renner e, de repente, aquela noite virou outra coisa.
+
+A gente subiu pro terraço pra ver as estrelas — e eu juro que tentei olhar pro céu, mas a vista mais bonita tava do meu lado. Depois Outback, risada, conversa que não queria acabar.
+
+E aí, no estacionamento, escapou um "te amo" sem querer. Você ficou vermelhinha de vergonha. Eu fiquei com aquilo na cabeça a noite inteira... e, 5 anos depois, ainda tá aqui.` }
+  },
+  {
+    id: 'c2', ano: '2021 – 2022', titulo: 'Os primeiros passos', sub: 'Festas, praia e o frio de Curitiba', capa: 'curitiba22_gorro',
+    jogo: 'Jogo da memória',
+    run: done => memory({
+      fotos: ['inicio_balao', 'inicio_festa', 'praia_abraco', 'bar_selfie', 'curitiba22_beijo', 'curitiba22_gorro'],
+      legendas: {
+        inicio_balao: 'Dezembro de 2021 🎈', inicio_festa: 'Dezembro de 2021 🪩', praia_abraco: 'Março de 2022 🌊',
+        bar_selfie: 'Março de 2022 🍻', curitiba22_beijo: 'Curitiba, abril de 2022 💋', curitiba22_gorro: 'Curitiba e aquele frio ❄️💙',
+      }
+    }, done),
+    carta: { foto: 'curitiba22_lago', legenda: 'Curitiba · abril de 2022', texto:
+`Depois daquele date veio um monte de primeira vez: primeiro dezembro juntos, praia abraçadinhos, a primeira viagem pra Curitiba passando frio de gorro.
+
+Em cada uma delas eu descobri um jeito novo de gostar de você.
+
+E descobri também que qualquer lugar vira o meu lugar favorito se você estiver nele. Até o frio de Curitiba. ❄️💙` }
+  },
+  {
+    id: 'c3', ano: '2023', titulo: 'A gente e nossas loucuras', sub: 'Museu das Ilusões e muita bobeira', capa: 'museu_surf',
+    jogo: 'Linha do tempo',
+    run: done => ordem({ itens: [
+      { foto: 'primeiro_date_3', data: '02.11.2021', legenda: 'O primeiro date' },
+      { foto: 'inicio_mesa', data: '16.12.2021', legenda: 'Primeiros meses de nós' },
+      { foto: 'curitiba22_jantar', data: '15.04.2022', legenda: 'Jantar em Curitiba' },
+      { foto: 'museu_casal', data: '17.03.2023', legenda: 'Museu das Ilusões' },
+    ]}, done),
+    carta: { foto: 'museu_ponta_cabeca', legenda: 'museu das ilusões · 2023', texto:
+`Eu de ponta-cabeça, você nos meus ombros surfando uma onda que nem existia. A gente sempre foi assim: bobo, rindo alto, inventando moda.
+
+Mas, no meio de tanta ilusão, uma coisa sempre foi muito real: a vontade de passar todos os meus dias com você.
+
+A rotina com você nunca foi rotina.` }
+  },
+  {
+    id: 'c4', ano: '2024', titulo: 'O pedido', sub: 'Curitiba · 01.11.2024', capa: 'pedido_anel_selfie',
+    jogo: 'O cofre secreto',
+    run: done => cofre({
+      codigo: '0111',
+      pergunta: 'Esse cofre só abre com o dia e o mês do pedido (DDMM) 💍',
+      dicas: ['Hmm, não foi esse 🤔', 'Dica: foi em Curitiba, um dia antes dos nossos 3 anos 😉', 'Última dica: 01 de novembro 💍'],
+      slides: [
+        { foto: 'pedido_abraco', legenda: '01.11.2024 · o momento' },
+        { foto: 'pedido_prato', legenda: 'Aceita casar comigo? 💍' },
+        { foto: 'pedido_risada', legenda: 'SIIIIM!!!' },
+        { foto: 'pedido_anel_selfie', legenda: 'Noivos! 💍' },
+        { foto: 'pedido_cafe', legenda: 'Primeiro café de noivos ☕' },
+        { foto: 'pedido_curitiba', legenda: 'Curitiba, 03.11.2024' },
+      ]
+    }, done),
+    carta: { foto: 'pedido_prato', legenda: 'aceita casar comigo?', texto:
+`01 de novembro de 2024, Curitiba.
+
+Um jantar, um prato escrito "Aceita casar comigo?" e o sim mais bonito que eu já ouvi.
+
+Um dia antes de completar 3 anos daquele date no Village, a gente decidiu que essa jornada não ia mais ter data pra acabar.
+
+Eu nunca tive tanta certeza de nada na vida.` }
+  },
+  {
+    id: 'c5', ano: '2025 – 2026', titulo: 'Marido e mulher', sub: 'O ano do nosso sim', capa: 'noivos_2026',
+    jogo: 'Quem é mais...?',
+    run: done => quem({ perguntas: [
+      { q: 'Quem dorme primeiro no meio do filme?', foto: 'campo_2026',
+        r: ['Pelo menos é sincera 😂', 'Calúnia! ...tá, às vezes 😴', 'E até hoje ninguém sabe o final do filme 🎬'] },
+      { q: 'Quem rouba o cobertor de madrugada?', foto: 'pb_2026',
+        r: ['Eu sabia!! Exijo reparação em forma de beijo 😤💋', 'Mentira, eu sou um anjo dormindo 😇', 'Guerra fria. Literalmente 🥶'] },
+      { q: 'Quem disse "te amo" primeiro?', foto: 'primeiro_date_3',
+        r: ['Siiim! No estacionamento do Village, sem querer 😳❤️', 'Hmm... tenta lembrar do estacionamento do Village 😏', 'Hoje a gente diz junto. Mas o primeiro foi seu 😏❤️'] },
+      { q: 'Quem escolhe onde a gente vai comer?', foto: 'aniv4_jantar',
+        r: ['E quase sempre acerta 🍽️', 'Depois de 40 minutos de "tanto faz" 😂', 'Depois de 40 minutos de "escolhe você" 😂'] },
+      { q: 'Quem ama mais?', foto: 'noivos_2026b',
+        r: ['Discordo. Mas aceito disputar isso pelos próximos 50 anos ❤️', 'Finalmente admitiu 😏❤️', 'Resposta certíssima ❤️'] },
+    ]}, done),
+    carta: { foto: 'noivos_2026b', legenda: '2026 · o ano do nosso sim', texto:
+`E aí chegou 2026. E chegou o 04 de abril: o dia em que você virou minha esposa.
+
+Ainda é engraçado falar "minha esposa" — engraçado e lindo.
+
+Hoje a gente divide a casa, os sonhos, o cobertor (às vezes nem tanto 😂) e uma vida inteira pela frente.
+
+Obrigado por me escolher todos os dias.` }
+  },
+];
+
+const CARTA_FINAL =
+`${ELA}, meu amor, meu momo,
+
+Há 5 anos, numa noite de novembro, você disse "te amo" sem querer e morreu de vergonha.
+
+Hoje eu quero dizer de propósito, com calma, olhando no seu olho: eu te amo. Amo seu riso, seu jeito, suas manias. Amo a gente.
+
+Foram 1.826 dias — de date, viagem, frio, praia, pedido, casamento — e eu faria cada um deles de novo.
+
+Feliz 5 anos. Que venham os próximos 50.`;
+
+const TODAS = ['primeiro_date_1','primeiro_date_2','inicio_balao','inicio_mesa','inicio_festa','praia_abraco','bar_selfie',
+  'curitiba22_jantar2','curitiba22_beijo','curitiba22_gorro','curitiba22_lago','museu_casal','museu_surf','pedido_abraco',
+  'pedido_prato','pedido_risada','pedido_anel_selfie','pedido_curitiba','aniv4_jantar','pb_2026','campo_2026','noivos_2026',
+  'noivos_2026b','colagem_jun26'];
+
+const ERROS = ['Errrrou! Mas te amo mesmo assim 😘', 'Quase! Tenta de novo, momo', 'Hmm... vou fingir que não vi 🙈', 'Essa doeu 😂 tenta outra'];
+const ERROS_ORDEM = ['Hmm, não foi nessa ordem 🤔', 'Essa veio depois! 😅', 'Quase! Pensa mais um pouquinho'];
+
+/* ===================== MOTOR DO JOGO ===================== */
+const app = document.getElementById('app');
+const $ = s => app.querySelector(s);
+const $$ = s => [...app.querySelectorAll(s)];
+const F = n => `fotos/${n}.jpg`;
+const pick = a => a[Math.floor(Math.random() * a.length)];
+const shuffle = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const paras = t => t.split('\n\n').map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
+let timers = [];
+const every = (fn, ms) => timers.push(setInterval(fn, ms));
+const clearTimers = () => { timers.forEach(clearInterval); timers = []; };
+
+const KEY = 'jornada5anos';
+const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || { done: [] }; } catch (e) { return { done: [] }; } };
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+let S = load();
+if (location.hash === '#reset') { S = { done: [] }; save(); history.replaceState(null, '', location.pathname); }
+if (location.hash === '#tudo') { S = { done: CAPS.map(c => c.id) }; save(); history.replaceState(null, '', location.pathname); }
+
+function show(html) { clearTimers(); app.innerHTML = html; window.scrollTo(0, 0); }
+const top = label => `<header class="top"><button class="back" data-act="map">← mapa</button><span class="pill">${label}</span></header>`;
+app.addEventListener('click', e => { if (e.target.closest('[data-act="map"]')) map(); });
+
+let toastT;
+function toast(msg, ms = 2200) {
+  const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('on');
+  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), ms);
+}
+
+/* corações flutuando no fundo */
+(() => {
+  const bg = document.getElementById('bg-hearts');
+  for (let i = 0; i < 14; i++) {
+    const s = document.createElement('span'); s.textContent = '♥';
+    s.style.left = Math.random() * 100 + '%'; s.style.fontSize = 12 + Math.random() * 22 + 'px';
+    s.style.animationDuration = 12 + Math.random() * 14 + 's'; s.style.animationDelay = -Math.random() * 20 + 's';
+    bg.appendChild(s);
+  }
+})();
+
+/* explosão de corações */
+const fx = document.getElementById('fx'), fg = fx.getContext('2d');
+let parts = [], raf = 0;
+const COLORS = ['#e2557a', '#ff8fab', '#f0b54a', '#b8325a', '#ffc2d1'];
+function sizeFx() { const d = devicePixelRatio || 1; fx.width = innerWidth * d; fx.height = innerHeight * d; }
+addEventListener('resize', sizeFx); sizeFx();
+function heart(g, s) {
+  g.beginPath(); g.moveTo(0, -s * .2);
+  g.bezierCurveTo(0, -s * .5, -s * .5, -s * .5, -s * .5, -s * .2);
+  g.bezierCurveTo(-s * .5, s * .1, 0, s * .3, 0, s * .5);
+  g.bezierCurveTo(0, s * .3, s * .5, s * .1, s * .5, -s * .2);
+  g.bezierCurveTo(s * .5, -s * .5, 0, -s * .5, 0, -s * .2); g.fill();
+}
+function burst(x = innerWidth / 2, y = innerHeight / 2, n = 30) {
+  for (let i = 0; i < n; i++) {
+    const a = Math.random() * Math.PI * 2, v = 2 + Math.random() * 5;
+    parts.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 3, r: 10 + Math.random() * 16, life: 1, rot: Math.random() * 6, vr: (Math.random() - .5) * .2, c: COLORS[i % COLORS.length] });
+  }
+  if (!raf) raf = requestAnimationFrame(tick);
+}
+function burstAt(el, n = 24) { const r = el.getBoundingClientRect(); burst(r.left + r.width / 2, r.top + r.height / 2, n); }
+function rain(ms = 4000) {
+  const end = Date.now() + ms;
+  const id = setInterval(() => {
+    if (Date.now() > end) return clearInterval(id);
+    for (let i = 0; i < 3; i++) parts.push({ x: Math.random() * innerWidth, y: -20, vx: (Math.random() - .5) * 1.5, vy: 2 + Math.random() * 3, r: 12 + Math.random() * 18, life: 1.6, rot: 0, vr: (Math.random() - .5) * .05, c: pick(COLORS), g: .02 });
+    if (!raf) raf = requestAnimationFrame(tick);
+  }, 60);
+}
+function tick() {
+  const d = devicePixelRatio || 1;
+  fg.clearRect(0, 0, fx.width, fx.height);
+  parts = parts.filter(p => p.life > 0 && p.y < innerHeight + 60);
+  for (const p of parts) {
+    p.x += p.vx; p.y += p.vy; p.vy += p.g ?? .12; p.vx *= .99; p.rot += p.vr; p.life -= .012;
+    fg.save(); fg.globalAlpha = Math.min(1, Math.max(0, p.life)); fg.translate(p.x * d, p.y * d); fg.rotate(p.rot);
+    fg.fillStyle = p.c; heart(fg, p.r * d); fg.restore();
+  }
+  raf = parts.length ? requestAnimationFrame(tick) : 0;
+}
+
+/* ===================== TELAS ===================== */
+function intro() {
+  const started = S.done.length > 0;
+  show(`<section class="intro">
+    <div class="stack">
+      <figure><img src="${F('primeiro_date_1')}" alt=""></figure>
+      <figure><img src="${F('pedido_anel_selfie')}" alt=""></figure>
+      <figure><img src="${F('noivos_2026')}" alt=""></figure>
+    </div>
+    <p class="kicker">02.11.2021 — 02.11.2026</p>
+    <h1>Nossa Jornada</h1>
+    <p class="sub">5 anos, 5 capítulos e algumas surpresas pelo caminho.</p>
+    <button class="btn" id="go">${started ? 'Continuar ❤️' : 'Começar ❤️'}</button>
+    <p class="from">Para ${ELA}, com amor, ${ELE}</p>
+  </section>`);
+  $('#go').onclick = e => { burstAt(e.currentTarget, 20); setTimeout(() => map(), 350); preload(); };
+}
+
+function preload() { TODAS.concat(CAPS.map(c => c.capa)).forEach(n => { const i = new Image(); i.src = F(n); }); }
+
+function unlocked(i) { return i === 0 || S.done.includes(CAPS[i - 1].id); }
+
+function map(novo = -1) {
+  const n = S.done.length, all = n === CAPS.length;
+  show(`<header class="maphead">
+      <p class="kicker">Nossa Jornada</p>
+      <h2>${all ? 'Você completou a jornada! 💍' : `Capítulo ${Math.min(n + 1, CAPS.length)} de ${CAPS.length}`}</h2>
+      <div class="prog"><i style="width:${n / CAPS.length * 100}%"></i></div>
+    </header>
+    <ol class="path">
+      ${CAPS.map((c, i) => {
+        const done = S.done.includes(c.id), open = unlocked(i);
+        return `<li class="node ${done ? 'done' : open ? '' : 'locked'} ${i === novo ? 'new' : ''}">
+          <button data-i="${i}" ${open ? '' : 'aria-disabled="true"'}>
+            <img class="thumb" src="${F(c.capa)}" alt="">
+            <span><span class="yr">${c.ano}</span><b>${c.titulo}</b><small>${open ? c.jogo : 'Bloqueado'}</small></span>
+            <span class="st">${done ? '✅' : open ? '▶️' : '🔒'}</span>
+          </button></li>`;
+      }).join('')}
+      <li class="node final ${all ? '' : 'locked'} ${novo === CAPS.length ? 'new' : ''}">
+        <button data-i="final" ${all ? '' : 'aria-disabled="true"'}>
+          <img class="thumb" src="${F('pb_2026')}" alt="">
+          <span><span class="yr">02.11.2026</span><b>5 anos ❤️</b><small>${all ? 'A surpresa final' : 'Complete tudo pra abrir'}</small></span>
+          <span class="st">${all ? '💍' : '🔒'}</span>
+        </button></li>
+    </ol>
+    ${n ? '<button class="reset" id="reset">recomeçar do zero</button>' : ''}`);
+  $$('.node button').forEach(b => b.onclick = () => {
+    const i = b.dataset.i;
+    if (i === 'final') return all ? final() : toast('Termina os capítulos primeiro 😉');
+    if (!unlocked(+i)) return toast('Calma! Esse capítulo ainda tá trancado 🔒');
+    capa(+i);
+  });
+  const r = $('#reset'); if (r) r.onclick = () => { if (confirm('Recomeçar a jornada do zero?')) { S = { done: [] }; save(); map(); } };
+  const nn = $('.node.new'); if (nn) setTimeout(() => nn.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
+}
+
+function capa(i) {
+  const c = CAPS[i];
+  show(`${top(`Capítulo ${i + 1}`)}
+    <div class="cover"><img src="${F(c.capa)}" alt="">
+      <div class="shade"><p class="kicker">Capítulo ${i + 1} · ${c.ano}</p><h1>${c.titulo}</h1><p>${c.sub}</p></div>
+    </div>
+    <p class="center muted" style="margin:18px 0 12px">Desafio: <b>${c.jogo}</b></p>
+    <button class="btn wide" id="play">Jogar ▶</button>`);
+  $('#play').onclick = () => c.run(() => carta(i));
+}
+
+function carta(i) {
+  const c = CAPS[i], ultimo = i === CAPS.length - 1;
+  burst(innerWidth / 2, innerHeight / 3, 40);
+  show(`${top(`Capítulo ${i + 1} ✓`)}
+    <p class="kicker center">Uma carta pra você 💌</p>
+    <figure class="polaroid"><img src="${F(c.carta.foto)}" alt=""><figcaption>${c.carta.legenda}</figcaption></figure>
+    <article class="letter">${paras(c.carta.texto)}<p class="sign">— ${ELE}</p></article>
+    <button class="btn wide" id="next">${ultimo ? 'Abrir a surpresa final 💍' : 'Próximo capítulo →'}</button>`);
+  if (!S.done.includes(c.id)) { S.done.push(c.id); save(); }
+  $('#next').onclick = () => map(ultimo ? CAPS.length : i + 1);
+}
+
+/* ===================== MINI-JOGOS ===================== */
+function quiz({ perguntas }, done) {
+  let i = 0; render();
+  function render() {
+    const q = perguntas[i];
+    const opts = shuffle(q.op.map((o, j) => ({ o, j })));
+    show(`${top(`Pergunta ${i + 1}/${perguntas.length}`)}
+      <section class="card">
+        ${q.foto ? `<img class="qphoto" src="${F(q.foto)}" alt="">` : ''}
+        <h2>${q.q}</h2>
+        <div class="opts">${opts.map(x => `<button class="opt" data-j="${x.j}">${x.o}</button>`).join('')}</div>
+        <p class="bubble hidden"></p>
+        <button class="btn wide hidden" id="nx">${i < perguntas.length - 1 ? 'Próxima →' : 'Continuar ✨'}</button>
+      </section>`);
+    $$('.opt').forEach(b => b.onclick = () => {
+      if (+b.dataset.j === 0) {
+        b.classList.add('ok'); $$('.opt').forEach(x => x.disabled = true);
+        const bb = $('.bubble'); bb.textContent = q.ok; bb.classList.remove('hidden');
+        $('#nx').classList.remove('hidden'); burstAt(b);
+      } else { b.classList.add('no'); b.disabled = true; toast(pick(ERROS)); }
+    });
+    $('#nx').onclick = () => { i++; i < perguntas.length ? render() : done(); };
+  }
+}
+
+function scratch({ foto, titulo, legenda }, done) {
+  show(`${top('Raspadinha')}
+    <section class="card center">
+      <h2>${titulo}</h2>
+      <div class="scr"><img src="${F(foto)}" alt=""><canvas></canvas></div>
+      <p class="muted" id="hint">Passa o dedo na tela pra raspar ✨</p>
+      <div class="hidden" id="after"><p class="cap">${legenda}</p><button class="btn wide" id="nx">Continuar ❤️</button></div>
+    </section>`);
+  const box = $('.scr'), cv = $('.scr canvas'), g = cv.getContext('2d');
+  const d = devicePixelRatio || 1, r = box.getBoundingClientRect();
+  cv.width = Math.round(r.width * d); cv.height = Math.round(r.height * d);
+  const gr = g.createLinearGradient(0, 0, cv.width, cv.height);
+  gr.addColorStop(0, '#f7a8bb'); gr.addColorStop(1, '#b8325a');
+  g.fillStyle = gr; g.fillRect(0, 0, cv.width, cv.height);
+  g.fillStyle = 'rgba(255,255,255,.28)'; g.font = `${26 * d}px serif`;
+  for (let y = 34 * d, row = 0; y < cv.height + 30 * d; y += 54 * d, row++)
+    for (let x = (row % 2 ? 10 : 37) * d; x < cv.width; x += 54 * d) g.fillText('♥', x, y);
+  g.fillStyle = '#fff'; g.textAlign = 'center'; g.font = `800 ${24 * d}px Nunito, sans-serif`;
+  g.fillText('raspe aqui ✨', cv.width / 2, cv.height / 2);
+  g.globalCompositeOperation = 'destination-out'; g.lineCap = 'round'; g.lineJoin = 'round'; g.lineWidth = 60 * d;
+  let down = false, last = null, moves = 0, fin = false;
+  const pos = e => { const b = cv.getBoundingClientRect(), k = cv.width / b.width; return [(e.clientX - b.left) * k, (e.clientY - b.top) * k]; };
+  const dig = p => { g.beginPath(); g.moveTo(...(last || p)); g.lineTo(p[0] + .1, p[1]); g.stroke(); last = p; if (++moves % 8 === 0) check(); };
+  cv.addEventListener('pointerdown', e => { down = true; last = null; cv.setPointerCapture(e.pointerId); dig(pos(e)); });
+  cv.addEventListener('pointermove', e => { if (down) dig(pos(e)); });
+  const up = () => { down = false; last = null; check(); };
+  cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+  function check() {
+    if (fin) return;
+    const data = g.getImageData(0, 0, cv.width, cv.height).data;
+    let clear = 0, tot = 0;
+    for (let i = 3; i < data.length; i += 4 * 37) { tot++; if (data[i] === 0) clear++; }
+    if (clear / tot > .5) {
+      fin = true; cv.classList.add('gone'); burstAt(box, 40);
+      $('#hint').classList.add('hidden'); $('#after').classList.remove('hidden');
+      setTimeout(() => $('#after').scrollIntoView({ behavior: 'smooth', block: 'end' }), 300);
+    }
+  }
+  $('#nx').onclick = done;
+}
+
+function memory({ fotos, legendas }, done) {
+  const deck = shuffle([...fotos, ...fotos]);
+  show(`${top('Jogo da memória')}
+    <section class="card">
+      <h2>Ache os pares 💞</h2>
+      <p class="muted" style="margin:0">Tentativas: <b id="tries">0</b> · Pares: <b id="pairs">0</b>/${fotos.length}</p>
+      <div class="mgrid">${deck.map(f => `<button class="mcard" data-f="${f}"><span class="inner"><span class="face front">♥</span><span class="face back"><img src="${F(f)}" alt=""></span></span></button>`).join('')}</div>
+    </section>`);
+  let first = null, lock = false, tries = 0, pairs = 0;
+  $$('.mcard').forEach(c => c.onclick = () => {
+    if (lock || c.classList.contains('flip')) return;
+    c.classList.add('flip');
+    if (!first) { first = c; return; }
+    tries++; $('#tries').textContent = tries;
+    const a = first; first = null;
+    if (a.dataset.f === c.dataset.f) {
+      pairs++; $('#pairs').textContent = pairs;
+      setTimeout(() => { a.classList.add('match'); c.classList.add('match'); burstAt(c, 16); toast(legendas[c.dataset.f]); }, 450);
+      if (pairs === fotos.length) setTimeout(() => { toast(`Todos os pares em ${tries} tentativas! 🏆`, 2400); setTimeout(done, 1800); }, 1300);
+    } else {
+      lock = true;
+      setTimeout(() => { a.classList.remove('flip'); c.classList.remove('flip'); lock = false; }, 950);
+    }
+  });
+}
+
+function ordem({ itens }, done) {
+  const view = shuffle(itens.map((it, i) => ({ ...it, i })));
+  show(`${top('Linha do tempo')}
+    <section class="card">
+      <h2>Coloca nossa história em ordem 🗓️</h2>
+      <p class="muted" style="margin:0">Toque nas fotos da mais antiga pra mais recente.</p>
+      <div class="ogrid">${view.map(v => `<button class="oitem" data-i="${v.i}"><img src="${F(v.foto)}" alt=""><span class="badge"></span></button>`).join('')}</div>
+      <div class="hidden" id="after">
+        <ol class="tl">${itens.map(it => `<li><b>${it.data}</b>${it.legenda}</li>`).join('')}</ol>
+        <button class="btn wide" id="nx">Continuar ❤️</button>
+      </div>
+    </section>`);
+  let next = 0;
+  $$('.oitem').forEach(b => b.onclick = () => {
+    if (b.classList.contains('set')) return;
+    if (+b.dataset.i === next) {
+      b.classList.add('set'); b.querySelector('.badge').textContent = ++next; burstAt(b, 10);
+      if (next === itens.length) {
+        toast('Perfeito! Você lembra de tudo 🥹');
+        $('#after').classList.remove('hidden');
+        setTimeout(() => $('#after').scrollIntoView({ behavior: 'smooth', block: 'end' }), 300);
+      }
+    } else {
+      b.classList.add('no'); setTimeout(() => b.classList.remove('no'), 450); toast(pick(ERROS_ORDEM));
+    }
+  });
+  $('#nx').onclick = done;
+}
+
+function cofre({ codigo, pergunta, dicas, slides }, done) {
+  show(`${top('O cofre secreto')}
+    <section class="card center">
+      <div class="lock">🔒</div>
+      <h2 style="font-size:21px">${pergunta}</h2>
+      <div class="digits">${'<span class="digit"></span>'.repeat(codigo.length)}</div>
+      <p class="muted" id="dica">&nbsp;</p>
+      <div class="keypad">${[1, 2, 3, 4, 5, 6, 7, 8, 9, '⌫', 0, '♥'].map(k => `<button class="key" data-k="${k}">${k}</button>`).join('')}</div>
+    </section>`);
+  let v = '', tries = 0, busy = false;
+  const paint = () => $$('.digit').forEach((el, i) => el.textContent = v[i] || '');
+  $$('.key').forEach(b => b.onclick = () => {
+    if (busy) return;
+    const k = b.dataset.k;
+    if (k === '⌫') v = v.slice(0, -1);
+    else if (k === '♥') return toast('Esse botão só serve pra dizer que eu te amo ❤️');
+    else if (v.length < codigo.length) v += k;
+    paint();
+    if (v.length === codigo.length) { busy = true; setTimeout(check, 250); }
+  });
+  function check() {
+    if (v === codigo) {
+      $('.lock').textContent = '🔓'; $('.lock').classList.add('open'); burstAt($('.lock'), 40);
+      setTimeout(() => slideshow(slides, done), 1100);
+    } else {
+      tries++; busy = false;
+      const ds = $('.digits'); ds.classList.add('no'); setTimeout(() => ds.classList.remove('no'), 450);
+      v = ''; paint(); $('#dica').textContent = dicas[Math.min(tries, dicas.length) - 1];
+    }
+  }
+}
+
+function slideshow(slides, done) {
+  let i = 0;
+  show(`${top('O pedido 💍')}
+    <section class="card center">
+      <div class="slides kb">${slides.map((s, k) => `<figure class="${k ? '' : 'on'}"><img src="${F(s.foto)}" alt=""><figcaption>${s.legenda}</figcaption></figure>`).join('')}</div>
+      <div class="dots">${slides.map((_, k) => `<i class="${k ? '' : 'on'}"></i>`).join('')}</div>
+      <button class="btn wide" id="nx">Próxima foto →</button>
+    </section>`);
+  const figs = $$('.slides figure'), dots = $$('.dots i');
+  const go = () => {
+    if (i === slides.length - 1) return done();
+    figs[i].classList.remove('on'); dots[i].classList.remove('on'); i++;
+    figs[i].classList.add('on'); dots[i].classList.add('on');
+    if (i === 2) burst(innerWidth / 2, innerHeight / 3, 40);
+    if (i === slides.length - 1) $('#nx').textContent = 'Continuar ❤️';
+  };
+  $('#nx').onclick = go; $('.slides').onclick = go;
+}
+
+function quem({ perguntas }, done) {
+  let i = 0; render();
+  function render() {
+    const q = perguntas[i];
+    show(`${top(`Pergunta ${i + 1}/${perguntas.length}`)}
+      <section class="card center">
+        <p class="kicker">Quem é mais...?</p>
+        ${q.foto ? `<img class="qphoto" src="${F(q.foto)}" alt="">` : ''}
+        <h2>${q.q}</h2>
+        <div class="quem">${['Eu 🙋‍♀️', `O ${ELE} 🙋‍♂️`, 'Nós dois 👫'].map((t, j) => `<button class="opt c" data-j="${j}">${t}</button>`).join('')}</div>
+        <p class="bubble hidden"></p>
+        <button class="btn wide hidden" id="nx">${i < perguntas.length - 1 ? 'Próxima →' : 'Continuar ❤️'}</button>
+      </section>`);
+    $$('.quem .opt').forEach(b => b.onclick = () => {
+      $$('.quem .opt').forEach(x => { x.disabled = true; x.classList.toggle('sel', x === b); });
+      const bb = $('.bubble'); bb.textContent = q.r[+b.dataset.j]; bb.classList.remove('hidden');
+      $('#nx').classList.remove('hidden'); burstAt(b, 12);
+    });
+    $('#nx').onclick = () => { i++; i < perguntas.length ? render() : done(); };
+  }
+}
+
+/* ===================== FINAL ===================== */
+function final() {
+  show(`${top('5 anos ❤️')}
+    <section class="final">
+      <p class="kicker center">02.11.2021 → hoje</p>
+      <h1 class="big">5 anos</h1>
+      <div class="counter">
+        <div><b id="cd">0</b><span>dias</span></div><div><b id="ch">0</b><span>horas</span></div>
+        <div><b id="cm">0</b><span>min</span></div><div><b id="cs">0</b><span>seg</span></div>
+      </div>
+      <p class="center muted" style="margin:0 0 16px">...juntos, e contando ❤️</p>
+      <div class="slides kb">${TODAS.map((f, k) => `<figure class="${k ? '' : 'on'}"><img src="${F(f)}" alt="" ${k > 2 ? 'loading="lazy"' : ''}></figure>`).join('')}</div>
+      <article class="letter">${paras(CARTA_FINAL)}<p class="sign">Seu, sempre,<br>${ELE}</p></article>
+      <div class="ask card">
+        <h2>Topa mais 50 anos de jornada comigo?</h2>
+        <div class="askbtns"><button class="btn yes">Sim ❤️</button><button class="btn ghost no">Não</button></div>
+      </div>
+    </section>`);
+  const tickC = () => {
+    let s = Math.max(0, Math.floor((Date.now() - INICIO) / 1000));
+    const dd = Math.floor(s / 86400); s -= dd * 86400;
+    const hh = Math.floor(s / 3600); s -= hh * 3600;
+    const mm = Math.floor(s / 60); s -= mm * 60;
+    $('#cd').textContent = dd.toLocaleString('pt-BR'); $('#ch').textContent = hh; $('#cm').textContent = mm; $('#cs').textContent = s;
+  };
+  tickC(); every(tickC, 1000);
+  const figs = $$('.slides figure'); let k = 0;
+  every(() => { figs[k].classList.remove('on'); k = (k + 1) % figs.length; figs[k].classList.add('on'); }, 3200);
+  burst(innerWidth / 2, innerHeight / 4, 50);
+
+  const ask = $('.ask'), no = $('.no');
+  const frases = ['Não', 'Tem certeza?', 'Pensa bem 🥺', 'Erro 404', 'Essa opção não existe', 'Clica no sim 😭', 'Nem tenta 😂'];
+  let n = 0;
+  const flee = e => {
+    e.preventDefault();
+    const b = ask.getBoundingClientRect();
+    no.style.position = 'absolute';
+    no.style.left = Math.random() * Math.max(0, b.width - no.offsetWidth - 10) + 'px';
+    no.style.top = 90 + Math.random() * Math.max(0, b.height - no.offsetHeight - 100) + 'px';
+    no.textContent = frases[Math.min(++n, frases.length - 1)];
+  };
+  no.addEventListener('pointerenter', flee); no.addEventListener('pointerdown', flee); no.addEventListener('click', flee);
+  $('.yes').onclick = () => {
+    rain(5000); burst(innerWidth / 2, innerHeight / 2, 60);
+    const o = document.createElement('div'); o.className = 'overlay';
+    o.innerHTML = `<div class="card center"><div class="ring">💍</div><h2>Combinado!</h2>
+      <p>Próxima parada: bodas de ouro.<br>Feliz 5 anos, ${ELA}. Te amo infinito ❤️</p>
+      <button class="btn">Fechar</button></div>`;
+    document.body.appendChild(o);
+    o.querySelector('button').onclick = () => o.remove();
+  };
+}
+
+intro();
+</script>
+</body>
+</html>
