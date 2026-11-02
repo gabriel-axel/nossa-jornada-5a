@@ -617,7 +617,7 @@ function curitiba(host, done) {
     <g class="tap" id="btnHeart"><rect x="14" y="14" width="74" height="40" rx="20" fill="#f4efe6"/>${heart(36, 26, 1, '#e2725b')}<text x="64" y="41" text-anchor="middle" font-family="Patrick Hand, sans-serif" font-size="18" fill="#2f3446" id="temp">❄</text></g>
   </svg>` });
   let n = 0;
-  const pos = [[110, 260], [128, 240], [146, 222], [158, 208], [164, 200]];
+  const pos = [[110, 260], [124, 242], [136, 228], [146, 216], [152, 208]];
   const temps = ['❄', '🙂', '☺️', '😊', '🥰'];
   const go = () => {
     if (n >= 4) return;
@@ -702,7 +702,8 @@ function jantar(host, done) {
     <rect x="0" y="290" width="360" height="110" fill="#fbf7f0"/><rect x="0" y="286" width="360" height="8" fill="#ece3d6"/>
     <g stroke="#ece3d6" stroke-width="2"><path d="M60 300 V400"/><path d="M140 300 V400"/><path d="M220 300 V400"/><path d="M300 300 V400"/></g>
     <ellipse cx="180" cy="292" rx="58" ry="14" fill="#b8323c"/><ellipse cx="180" cy="290" rx="46" ry="10" fill="#fff"/>
-    <rect x="96" y="262" width="8" height="26" rx="2" fill="#f4efe6"/><path d="M100 252 q5 6 0 10 q-5 -4 0 -10 Z" fill="#f0c05a"/>
+    <rect x="326" y="262" width="8" height="26" rx="2" fill="#f4efe6"/><path d="M330 252 q5 6 0 10 q-5 -4 0 -10 Z" fill="#f0c05a"/>
+    <rect x="22" y="268" width="14" height="20" rx="4" fill="#a7d3d9"/><circle cx="29" cy="262" r="6" fill="#e2725b"/>
     <g id="cloche" class="lid tap"><path d="M134 290 Q134 236 180 236 Q226 236 226 290 Z" fill="#c9ccd3"/><path d="M150 270 Q156 248 176 244" stroke="#eef0f3" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="180" cy="230" r="7" fill="#a9adb6"/></g>
   </svg>` });
   c.svg.querySelector('#cloche').onclick = () => {
