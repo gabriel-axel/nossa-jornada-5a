@@ -88,6 +88,8 @@ h2{font:600 34px/1.05 Caveat,cursive;margin:4px 0 8px;color:var(--navy)}
 /* interações das cenas */
 .tap{cursor:pointer}
 .walk,.slide{transition:transform 1.1s cubic-bezier(.45,.05,.3,1)}
+.boing{animation:boing .55s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes boing{0%{transform:translateY(-26px)}60%{transform:translateY(4px)}100%{transform:translateY(0)}}
 .store{cursor:pointer;transition:opacity .3s}
 .store.dim{opacity:.35}
 .flip{transition:transform 1s cubic-bezier(.5,0,.3,1)}
@@ -177,7 +179,7 @@ const starsAt = (pts, c = '#f6e7c1') => `<g fill="${c}">${pts.map(([x, y, r = 1.
 
 function biel(o = {}) {
   const pele = '#e3b08e', cab = '#2d221e', cam = o.camisa || '#b0714a', calca = o.calca || '#3b4256';
-  const bracos = o.abertos
+  const bracos = o.semBracos ? '' : o.abertos
     ? `<rect x="-64" y="-114" width="42" height="10" rx="5" fill="${pele}"/><rect x="22" y="-114" width="42" height="10" rx="5" fill="${pele}"/>`
     : `<rect x="-31" y="-110" width="10" height="48" rx="5" fill="${pele}"/><rect x="21" y="-110" width="10" height="48" rx="5" fill="${pele}"/>`;
   const mangas = o.abertos
@@ -230,6 +232,20 @@ function sah(o = {}) {
     ${gorro}${olhos}
     <path d="M-3 -119 Q0 -116 3 -119" fill="none" stroke="#b5523f" stroke-width="1.6" stroke-linecap="round"/>
     <g ${o.blushId ? `id="${o.blushId}"` : ''} fill="#e89a8a" opacity=".55"><circle cx="-10" cy="-121" r="3.2"/><circle cx="10" cy="-121" r="3.2"/></g>`;
+}
+
+/* Sah pulando no colo do Biel, de frente (vista por trás dela) */
+function sahPulo() {
+  const cab = '#7b4a33', jeans = '#5b7fa6';
+  return `
+    <g stroke="${jeans}" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M-36 -84 L-54 -72 L-46 -57"/><path d="M2 -84 L30 -72 L24 -57"/></g>
+    <ellipse cx="-46" cy="-55" rx="7" ry="4" fill="#efe7da"/><ellipse cx="24" cy="-55" rx="7" ry="4" fill="#efe7da"/>
+    <path d="M-46 -116 C-44 -124 -36 -127 -24 -127 L-6 -125 C2 -123 6 -118 6 -112 L4 -82 L-40 -82 Z" fill="#f1e6d6"/>
+    <path d="M0 -118 C10 -128 18 -126 23 -116" fill="none" stroke="#e8dccb" stroke-width="9" stroke-linecap="round"/>
+    <path d="M-47 -142 C-51 -118 -47 -100 -41 -92 C-34 -96 -26 -90 -20 -94 C-16 -104 -13 -126 -14 -142 Z" fill="${cab}"/>
+    <circle cx="-30" cy="-142" r="18" fill="${cab}"/>
+    <path d="M27 -104 C21 -96 11 -94 0 -97" fill="none" stroke="#e3b08e" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="-31" cy="-99" r="5" fill="#e3b08e"/>`;
 }
 
 /* retrato (capa do jogo e resposta do pedido) */
@@ -476,7 +492,8 @@ function renner(host, done) {
     ${roupas(36)}${roupas(238)}
     <g id="gSah" class="walk" style="transform:translate(62px,404px)">${sah()}</g>
     <g id="gBiel" class="walk" style="transform:translate(298px,404px)">${biel()}</g>
-    <g id="meet" opacity="0" style="transition:opacity .6s">${heart(180, 205, 1.8, '#e2725b')}</g></svg>` });
+    <g id="hug" transform="translate(210 404)" opacity="0"><g id="hugIn">${biel({ semBracos: true, feliz: true })}${sahPulo()}</g></g>
+    <g id="meet" opacity="0" style="transition:opacity .6s">${heart(172, 205, 1.8, '#e2725b')}${heart(222, 186, 1, '#f0c05a')}${heart(140, 222, .9, '#eaa6a0')}</g></svg>` });
   const btn = el('<button class="act">dar um passo →</button>'); host.appendChild(btn);
   const pos = [[62, 298], [92, 268], [122, 238], [152, 210]];
   const caps = ['', 'Procurando você no meio das araras...', 'Acho que é ela... 👀', 'Foi na Renner que eu te vi pela primeira vez.'];
@@ -489,14 +506,25 @@ function renner(host, done) {
     if (step < 3) return;
     btn.remove();
     setTimeout(() => {
+      const gs = c.svg.querySelector('#gSah');
+      gs.style.transition = 'transform .4s ease-out, opacity .15s .3s';
+      gs.style.transform = 'translate(186px,350px)'; gs.style.opacity = 0;
+      setTimeout(() => {
+        c.svg.querySelector('#gBiel').style.opacity = 0;
+        c.svg.querySelector('#hug').setAttribute('opacity', 1);
+        c.svg.querySelector('#hugIn').classList.add('boing');
+        hearts(c.svg, 6);
+      }, 380);
+    }, 1100);
+    setTimeout(() => {
       c.svg.querySelector('#meet').setAttribute('opacity', 1);
-      c.cap.innerHTML = 'Foi na Renner que eu te vi pela primeira vez. <b>Oi.</b>';
+      c.cap.innerHTML = 'Foi na Renner que eu te vi pela primeira vez. <b>E você já chegou pulando em mim 😂</b>';
       puzzle(host, { n: 5, side: 'l', dica: 'as primeiras conversas: encaixe as peças 🧩' }, () => setTimeout(() =>
         puzzle(host, { n: 4, side: 'r' }, () => {
           host.appendChild(el('<p class="cap">Tanta coisa pra falar que a conversa ainda vinha em pedacinhos. <b>Mas encaixava.</b></p>'));
           done();
         }), 400));
-    }, 1100);
+    }, 2000);
   };
 }
 
