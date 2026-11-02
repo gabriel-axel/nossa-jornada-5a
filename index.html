@@ -184,8 +184,7 @@ function biel(o = {}) {
     : `<rect x="-33" y="-112" width="14" height="18" rx="6" fill="${cam}"/><rect x="19" y="-112" width="14" height="18" rx="6" fill="${cam}"/>`;
   const topo = o.gorro
     ? `<path d="M-21 -146 C-21 -170 21 -170 21 -146 Z" fill="#4a5375"/><rect x="-22" y="-152" width="44" height="9" rx="4" fill="#3b4256"/><circle cx="0" cy="-170" r="5" fill="#3b4256"/>`
-    : `<path d="M-21 -138 C-24 -158 -12 -168 2 -167 C18 -166 25 -156 21 -138 C19 -146 13 -150 6 -150 C-4 -152 -14 -148 -21 -138 Z" fill="${cab}"/>
-       <path d="M-8 -161 C0 -158 8 -157 16 -158" fill="none" stroke="#4a3a33" stroke-width="1.5" stroke-linecap="round"/>`;
+    : `<path d="M-21 -138 C-24 -158 -12 -168 2 -167 C18 -166 25 -156 21 -138 C19 -146 13 -150 6 -150 C-4 -152 -14 -148 -21 -138 Z" fill="${cab}"/>`;
   const olhos = o.feliz
     ? `<g fill="none" stroke="${cab}" stroke-width="2" stroke-linecap="round"><path d="M-10 -141 Q-7 -145 -4 -141"/><path d="M4 -141 Q7 -145 10 -141"/></g>`
     : `<circle cx="-7" cy="-142" r="2" fill="${cab}"/><circle cx="7" cy="-142" r="2" fill="${cab}"/>`;
@@ -217,16 +216,16 @@ function sah(o = {}) {
     ? `<path d="M-17 -104 C-11 -108 11 -108 17 -104 L19 -66 L34 -2 L-34 -2 L-19 -66 Z" fill="#fbf7f0"/><path d="M-19 -66 L19 -66" stroke="#e8dccb" stroke-width="2"/>`
     : `<path d="M-21 -52 L-19 -96 C-19 -103 -13 -106 -6 -106 L6 -106 C13 -106 19 -103 19 -96 L21 -52 Z" fill="${roupa}"/>`;
   const buque = o.buque ? `<g transform="translate(22 -56)"><circle cx="-4" cy="4" r="7" fill="#7aa36f"/><circle cx="4" cy="2" r="6" fill="#7aa36f"/><circle cx="-3" cy="-2" r="5" fill="#fff"/><circle cx="4" cy="-4" r="4.5" fill="#fff"/><circle cx="1" cy="3" r="4" fill="#f4d4d4"/></g>` : '';
-  const gorro = o.gorro ? `<path d="M-20 -132 C-20 -154 20 -154 20 -132 Z" fill="#f4efe6"/><rect x="-21" y="-137" width="42" height="9" rx="4" fill="#e6dccb"/><circle cx="0" cy="-154" r="5.5" fill="#e6dccb"/>` : '';
+  const gorro = o.gorro ? `<path d="M-24 -134 C-24 -163 24 -163 24 -134 Z" fill="#f4efe6"/><rect x="-25" y="-139" width="50" height="10" rx="5" fill="#e6dccb"/><circle cx="0" cy="-162" r="6" fill="#e6dccb"/>` : '';
   const olhos = o.feliz
     ? `<g fill="none" stroke="#3b241a" stroke-width="1.8" stroke-linecap="round"><path d="M-9 -127 Q-6 -131 -3 -127"/><path d="M3 -127 Q6 -131 9 -127"/></g>`
     : `<circle cx="-6" cy="-127" r="1.8" fill="#3b241a"/><circle cx="6" cy="-127" r="1.8" fill="#3b241a"/>`;
   return `${pernas}
-    <path d="M-24 -130 C-26 -152 26 -152 24 -130 C27 -106 24 -96 20 -92 L-20 -92 C-24 -96 -27 -106 -24 -130 Z" fill="${cab}"/>
+    <path d="M-25 -128 C-28 -156 28 -156 25 -128 C28 -106 24 -96 20 -92 L-20 -92 C-24 -96 -28 -106 -25 -128 Z" fill="${cab}"/>
     ${bracos}${corpo}${buque}
     <rect x="-4" y="-112" width="8" height="8" fill="#f0c4a6"/>
     <circle cx="0" cy="-128" r="18" fill="${pele}"/>
-    <path d="M-19 -124 C-22 -150 22 -152 19 -124 C16 -133 8 -137 -1 -136 C-9 -135 -16 -131 -19 -124 Z" fill="${cab}"/>
+    <path d="M-21 -120 C-25 -160 25 -162 21 -120 C18 -131 10 -137 0 -136 C-9 -136 -17 -131 -21 -120 Z" fill="${cab}"/>
     ${gorro}${olhos}
     <path d="M-3 -119 Q0 -116 3 -119" fill="none" stroke="#b5523f" stroke-width="1.6" stroke-linecap="round"/>
     <g ${o.blushId ? `id="${o.blushId}"` : ''} fill="#e89a8a" opacity=".55"><circle cx="-10" cy="-121" r="3.2"/><circle cx="10" cy="-121" r="3.2"/></g>`;
@@ -260,9 +259,7 @@ function retrato(oculos = false, anel = false, guardanapo = false) {
     <circle cx="520" cy="268" r="7" fill="#e89a8a" opacity=".55"/><circle cx="580" cy="268" r="7" fill="#e89a8a" opacity=".55"/>
     <g fill="none" stroke="#2d221e" stroke-linecap="round"><path d="M527 249 Q534 242 541 249" stroke-width="3"/><path d="M559 249 Q566 242 573 249" stroke-width="3"/><path d="M524 233 L540 229" stroke-width="4"/><path d="M560 229 L576 233" stroke-width="4"/></g>
     ${oculos ? '<g fill="none" stroke="#2d221e" stroke-width="3"><circle cx="534" cy="247" r="13"/><circle cx="566" cy="247" r="13"/><path d="M547 247 L553 247"/></g>' : ''}
-    <path d="M500 256 C494 206 522 182 552 182 C584 182 606 204 600 256 C596 236 586 222 570 216 C548 212 524 220 506 238 Z" fill="#2d221e"/>
-    <path d="M528 198 C546 192 566 192 584 202" fill="none" stroke="#4a3a33" stroke-width="3" stroke-linecap="round"/>
-    <path d="M403 262 C392 330 402 382 395 420 L522 420 C514 380 520 330 507 264 C499 222 411 222 403 262 Z" fill="#7b4a33"/>
+    <path d="M500 256 C494 206 522 182 552 182 C584 182 606 204 600 256 C596 236 586 222 570 216 C548 212 524 220 506 238 Z" fill="#2d221e"/>    <path d="M403 262 C392 330 402 382 395 420 L522 420 C514 380 520 330 507 264 C499 222 411 222 403 262 Z" fill="#7b4a33"/>
     <path d="M392 420 C396 376 420 360 455 360 C490 360 512 378 516 420 Z" fill="#f1e6d6"/>
     <rect x="445" y="318" width="20" height="46" fill="#f0c4a6"/>
     <g transform="rotate(10 455 290)">
