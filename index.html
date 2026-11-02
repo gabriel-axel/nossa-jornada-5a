@@ -67,23 +67,16 @@ h2{font:600 34px/1.05 Caveat,cursive;margin:4px 0 8px;color:var(--navy)}
   box-shadow:0 0 0 2px var(--ink);animation:fade .4s ease both}
 .bubble::after{content:'';position:absolute;top:-12px;width:20px;height:20px;background:#fff;transform:rotate(45deg);box-shadow:-2px -2px 0 0 var(--ink)}
 .bubble.l::after{left:48px} .bubble.r::after{right:48px}
-.slots{display:flex;gap:6px;transition:gap .5s}
-.slots.joined{gap:0}
-.slot{height:42px;border:2px dashed #cfc8bd;border-radius:10px}
-.slot.f{border:0;animation:pop .3s}
-.slots.joined .slot{border-radius:0}
-.slots.joined .slot:first-child{border-top-left-radius:10px;border-bottom-left-radius:10px}
-.slots.joined .slot:last-child{border-top-right-radius:10px;border-bottom-right-radius:10px}
+.slots{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;transition:opacity .5s}
+.slot{height:40px;padding:0 10px;border:2px dashed #cfc8bd;border-radius:10px;color:transparent;display:grid;place-items:center;font-size:20px}
+.slot.f{border-color:transparent;color:var(--ink);animation:pop .3s}
 .said{position:absolute;inset:0;display:grid;place-items:center;font:600 34px Caveat,cursive;color:var(--coral);opacity:0;transition:opacity .6s;pointer-events:none;text-align:center;line-height:1}
 .said small{display:block;font-size:20px;color:var(--muted)}
 .said.on{opacity:1}
-.tray{display:flex;flex-wrap:wrap;gap:14px 16px;justify-content:center;min-height:50px;margin-bottom:8px}
-.piece{height:42px;border:0;border-radius:10px;position:relative}
-.piece::after{content:'';position:absolute;top:12px;right:-8px;width:16px;height:16px;border-radius:50%;background:inherit}
-.piece.k2::after{top:-8px;right:auto;left:calc(50% - 8px)}
-.piece.k3::after{display:none}
-.piece:active{transform:scale(.9)!important}
-.piece.gone{visibility:hidden}
+.tray{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;min-height:50px;margin-bottom:8px}
+.chip{height:44px;border:0;border-radius:10px;padding:0 14px;font-size:21px;color:var(--ink)}
+.chip:active{transform:scale(.92)!important}
+.chip.gone{visibility:hidden}
 
 /* interações das cenas */
 .tap{cursor:pointer}
@@ -348,25 +341,27 @@ function cena(host, { svg, cap = '', tip = '' }) {
   return { svg: host.querySelector('svg'), cap: host.querySelector('.cap'), tip: host.querySelector('.tip') };
 }
 
-/* quebra-cabeça de conversa: quanto mais perto, menos peças */
+/* monte a frase: toque nas palavras na ordem certa */
 const PCOLORS = ['#e2725b', '#f0c05a', '#5e9c97', '#eaa6a0', '#7d8fb3'];
-function puzzle(host, { n, side = 'l', texto, dica }, done) {
-  const widths = Array.from({ length: n }, () => (n === 1 ? 90 : 34 + Math.round(Math.random() * 2) * 10));
-  const wrap = el(`<div>${dica ? `<p class="tip">${dica}</p>` : ''}<div class="bubble ${side}"><div class="slots">${widths.map((w, i) => `<span class="slot" data-i="${i}" style="width:${w}px"></span>`).join('')}</div>${texto ? `<div class="said">${texto}</div>` : ''}</div>
-    <div class="tray">${shuffle(widths.map((w, i) => i)).map(i => `<button class="piece k${(i % 3) + 1}" data-i="${i}" aria-label="peça" style="width:${widths[i]}px;background:${PCOLORS[i % PCOLORS.length]};transform:rotate(${(Math.random() * 14 - 7).toFixed(1)}deg)"></button>`).join('')}</div></div>`);
+function frase(host, { palavras, side = 'l', dica, final }, done) {
+  const wrap = el(`<div>${dica ? `<p class="tip">${dica}</p>` : ''}<div class="bubble ${side}"><div class="slots">${palavras.map((p, i) => `<span class="slot" data-i="${i}">${p}</span>`).join('')}</div>${final ? `<div class="said">${final}</div>` : ''}</div>
+    <div class="tray">${shuffle(palavras.map((p, i) => ({ p, i }))).map(x => `<button class="chip" data-p="${x.p}" style="background:${PCOLORS[x.i % PCOLORS.length]};transform:rotate(${(Math.random() * 8 - 4).toFixed(1)}deg)">${x.p}</button>`).join('')}</div></div>`);
   host.appendChild(wrap);
-  let left = n;
-  wrap.querySelectorAll('.piece').forEach(p => p.onclick = () => {
-    const s = wrap.querySelector(`.slot[data-i="${p.dataset.i}"]`);
-    s.classList.add('f'); s.style.background = p.style.background; p.classList.add('gone');
-    if (--left) return;
-    const slots = wrap.querySelector('.slots');
-    setTimeout(() => slots.classList.add('joined'), 200);
+  const tip = wrap.querySelector('.tip'), slots = wrap.querySelectorAll('.slot');
+  let k = 0;
+  wrap.querySelectorAll('.chip').forEach(b => b.onclick = () => {
+    if (b.dataset.p !== palavras[k]) {
+      b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake');
+      if (tip) tip.textContent = pick(['Tem certeza? 👀', 'Hmm, não é essa ainda 🤔', 'Quase! Qual vem agora?']);
+      return;
+    }
+    slots[k].classList.add('f'); slots[k].style.background = b.style.background; b.classList.add('gone'); k++;
+    if (k < palavras.length) return;
     setTimeout(() => {
-      wrap.querySelector('.tray').remove(); wrap.querySelector('.tip')?.remove();
-      if (texto) { slots.style.opacity = 0; wrap.querySelector('.said').classList.add('on'); }
-      hearts(wrap.querySelector('.bubble'), 4); done && done();
-    }, 800);
+      wrap.querySelector('.tray').remove(); tip?.remove();
+      if (final) { wrap.querySelector('.slots').style.opacity = 0; wrap.querySelector('.said').classList.add('on'); }
+      hearts(wrap.querySelector('.bubble'), 5); done && done();
+    }, 500);
   });
   scrollEnd(wrap);
 }
@@ -519,11 +514,10 @@ function renner(host, done) {
     setTimeout(() => {
       c.svg.querySelector('#meet').setAttribute('opacity', 1);
       c.cap.innerHTML = 'Foi na Renner que eu te vi pela primeira vez. <b>E você já chegou pulando em mim 😂</b>';
-      puzzle(host, { n: 5, side: 'l', dica: 'as primeiras conversas: encaixe as peças 🧩' }, () => setTimeout(() =>
-        puzzle(host, { n: 4, side: 'r' }, () => {
-          host.appendChild(el('<p class="cap">Tanta coisa pra falar que a conversa ainda vinha em pedacinhos. <b>Mas encaixava.</b></p>'));
-          done();
-        }), 400));
+      frase(host, { palavras: ['ela', 'é', 'ainda', 'mais', 'linda', 'pessoalmente'], side: 'r', dica: 'o que eu pensei na hora? toque nas palavras na ordem certa' }, () => {
+        host.appendChild(el('<p class="cap">E a partir dali, <b>a conversa não parou mais.</b></p>'));
+        done();
+      });
     }, 2000);
   };
 }
@@ -597,7 +591,7 @@ function despedida(host, done) {
     <circle cx="56" cy="360" r="20" fill="#2b2b2b"/><circle cx="56" cy="360" r="8" fill="#c9c4bd"/><circle cx="168" cy="360" r="20" fill="#2b2b2b"/><circle cx="168" cy="360" r="8" fill="#c9c4bd"/>
     <g transform="translate(236 410)">${sah({ blushId: 'blushPark' })}</g><g transform="translate(298 410)">${biel()}</g>
     <g id="parkHearts" opacity="0" style="transition:opacity .6s">${heart(268, 216, 1.3, '#e2725b')}${heart(244, 196, .9, '#eaa6a0')}${heart(292, 200, .8, '#f0c05a')}</g></svg>` });
-  setTimeout(() => puzzle(host, { n: 3, side: 'l', texto: 'te amo... 😳', dica: 'na despedida, ela disse... encaixe as peças 🧩' }, () => {
+  setTimeout(() => frase(host, { palavras: ['te', 'amo'], side: 'l', final: 'te amo... 😳', dica: 'na despedida, ela disse... toque nas palavras na ordem' }, () => {
     c.svg.querySelector('#blushPark').setAttribute('opacity', 1); c.svg.querySelector('#parkHearts').setAttribute('opacity', 1);
     c.cap.innerHTML = 'Escapou sem querer. Você ficou morrendo de vergonha. <b>Eu fiquei morrendo de amor.</b>';
     done();
@@ -790,7 +784,7 @@ function caixinha(host, done) {
 
 function resposta(host, done) {
   host.innerHTML = `<div class="panel">${retrato(true, true)}</div><p class="cap">E a resposta dela...</p>`;
-  puzzle(host, { n: 2, side: 'l', texto: 'SIIIM!!! 💍', dica: 'a essa altura, a conversa só precisava de 2 peças 🧩' }, () => {
+  frase(host, { palavras: ['S', 'I', 'I', 'I', 'M', '!!!'], side: 'l', final: 'SIIIM!!! 💍', dica: 'monte a resposta dela, letra por letra' }, () => {
     host.querySelector('#blushR').setAttribute('opacity', 1);
     host.querySelector('.cap').innerHTML = 'O sim mais bonito que eu já ouvi. <b>Noivos!</b>';
     done();
@@ -898,8 +892,8 @@ function quemEhMais(host, done) {
 
 function umaPeca(host, done) {
   host.innerHTML = `<div class="panel">${retrato(false, false)}</div>
-    <p class="cap">No primeiro date, a conversa vinha em pedacinhos. <b>Hoje basta uma peça.</b></p>`;
-  puzzle(host, { n: 1, side: 'r', texto: 'te amo.<small>dessa vez de propósito</small>', dica: 'a última peça é minha 🧩' }, () => {
+    <p class="cap">No primeiro date eu precisei de seis palavras. <b>Hoje bastam duas.</b></p>`;
+  frase(host, { palavras: ['te amo.'], side: 'r', final: 'te amo.<small>dessa vez de propósito</small>', dica: 'a última frase é minha' }, () => {
     host.querySelector('#blushR').setAttribute('opacity', 1); done();
   });
 }
