@@ -972,13 +972,15 @@ function final() {
   const ask = app.querySelector('.ask'), no = app.querySelector('.no');
   const yes = app.querySelector('.yes');
   const frases = ['Tem certeza? 👀', 'Pensa bem 🥺', 'Erro 404', 'Essa opção não existe', 'Clica no sim 😭', 'Nem tenta 😂', 'Só tem o sim 😌', 'Desiste não? 😅'];
-  let n = 0, auto = 0, ultimo = 0;
-  // foge pra sempre, mesmo tamanho, sem nunca encostar no "Sim"
+  let n = 0, auto = 0, ultimo = 0, tentou = false;
+  // foge pra sempre, mesmo tamanho, sem nunca encostar no "Sim"; texto só muda depois que ela tenta tocar
   const flee = e => {
-    if (e) e.preventDefault();
-    if (Date.now() - ultimo < 400) return;
-    ultimo = Date.now();
-    no.textContent = frases[n++ % frases.length];
+    if (e) {
+      e.preventDefault(); tentou = true;
+      if (Date.now() - ultimo < 400) return; // um toque dispara pointerdown e click
+      ultimo = Date.now();
+    }
+    if (tentou) no.textContent = frases[n++ % frases.length];
     no.style.position = 'absolute'; no.style.margin = '0';
     const a = ask.getBoundingClientRect(), s = yes.getBoundingClientRect();
     const w = no.offsetWidth, h = no.offsetHeight, folga = 16;
