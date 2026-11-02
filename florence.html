@@ -18,7 +18,7 @@ html,body{margin:0}
 body{background:var(--paper);color:var(--ink);font:20px/1.35 'Patrick Hand',system-ui,sans-serif;overflow-x:hidden;
   background-image:radial-gradient(rgba(47,52,70,.05) 1px,transparent 1.2px);background-size:7px 7px}
 button{font:inherit;color:inherit;touch-action:manipulation;cursor:pointer}
-main{max-width:440px;margin:0 auto;padding:14px 16px calc(40px + env(safe-area-inset-bottom));min-height:100dvh}
+main{max-width:440px;margin:0 auto;overflow-x:hidden;padding:14px 16px calc(40px + env(safe-area-inset-bottom));min-height:100dvh}
 .dots{display:flex;gap:6px;justify-content:center;margin:2px 0 14px}
 .dots i{width:22px;height:4px;border-radius:2px;background:#ddd5c8;transition:background .4s}
 .dots i.on{background:var(--coral)}
@@ -45,7 +45,7 @@ h1{font:600 52px/1 Caveat,cursive;margin:4px 0 6px;color:var(--navy)}
 .title p.sub{color:var(--muted);margin:0 0 22px}
 
 /* puzzle */
-.bubble{position:relative;background:#fff;border-radius:22px;padding:14px;margin:14px 0 14px;min-height:76px;display:grid;place-items:center;
+.bubble{position:relative;background:#fff;border-radius:22px;padding:14px 10px;margin:14px 0 14px;min-height:76px;display:grid;place-items:center;max-width:100%;
   box-shadow:0 0 0 2px var(--ink);animation:fade .4s ease both}
 .bubble::after{content:'';position:absolute;top:-12px;width:20px;height:20px;background:#fff;transform:rotate(45deg);box-shadow:-2px -2px 0 0 var(--ink)}
 .bubble.l::after{left:48px} .bubble.r::after{right:48px}
@@ -225,7 +225,7 @@ function hearts(el, n = 6) {
 /* quebra-cabeça de conversa (mecânica do Florence) */
 const PCOLORS = ['#e2725b', '#f0c05a', '#5e9c97', '#eaa6a0', '#7d8fb3'];
 function puzzle(host, { n, side, texto }, done) {
-  const widths = Array.from({ length: n }, () => 40 + Math.round(Math.random() * 3) * 10);
+  const widths = Array.from({ length: n }, () => 34 + Math.round(Math.random() * 2) * 10);
   const wrap = document.createElement('div');
   wrap.innerHTML = `<div class="bubble ${side}"><div class="slots">${widths.map((w, i) => `<span class="slot" data-i="${i}" style="width:${w}px"></span>`).join('')}</div>${texto ? `<div class="said">${texto}</div>` : ''}</div>
     <div class="tray">${shuffle(widths.map((w, i) => i)).map(i => `<button class="piece k${(i % 3) + 1}" data-i="${i}" aria-label="peça" style="width:${widths[i]}px;background:${PCOLORS[i % PCOLORS.length]};transform:rotate(${(Math.random() * 14 - 7).toFixed(1)}deg)"></button>`).join('')}</div>`;
