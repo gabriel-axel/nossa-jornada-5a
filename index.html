@@ -155,7 +155,8 @@ h2{font:600 34px/1.05 Caveat,cursive;margin:4px 0 8px;color:var(--navy)}
 .counter span{font-size:14px;color:var(--muted)}
 .ask{position:relative;min-height:220px;text-align:center;padding:10px 0}
 .askbtns{display:flex;gap:16px;justify-content:center;margin-top:14px}
-.ask .no{transition:left .25s,top .25s}
+.ask .no{transition:left .35s,top .35s,transform .35s,opacity .6s}
+.ask .yes{transition:transform .35s}
 .overlay{position:fixed;inset:0;z-index:20;background:rgba(47,52,70,.5);display:grid;place-items:center;padding:20px;animation:fade .3s}
 .overlay .box{background:var(--paper);border-radius:8px;padding:24px 20px;text-align:center;max-width:360px}
 #musica{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));z-index:15;width:44px;height:44px;border-radius:50%;border:0;
@@ -971,17 +972,33 @@ function final() {
   }, 2800));
   hearts(app.querySelector('.panel'), 8);
   const ask = app.querySelector('.ask'), no = app.querySelector('.no');
+  const yes = app.querySelector('.yes');
   const frases = ['Não', 'Tem certeza? 👀', 'Pensa bem 🥺', 'Erro 404', 'Essa opção não existe', 'Clica no sim 😭', 'Nem tenta 😂'];
-  let n = 0;
+  let n = 0, desistiu = false, auto = 0, ultimo = 0;
   const flee = e => {
-    e.preventDefault();
+    if (e) e.preventDefault();
+    if (desistiu || Date.now() - ultimo < 400) return;
+    ultimo = Date.now(); n++;
     const b = ask.getBoundingClientRect();
     no.style.position = 'absolute'; no.style.margin = '0';
     no.style.left = Math.random() * Math.max(0, b.width - no.offsetWidth - 10) + 'px';
     no.style.top = 80 + Math.random() * Math.max(0, b.height - no.offsetHeight - 90) + 'px';
-    no.textContent = frases[Math.min(++n, frases.length - 1)];
+    no.style.transform = `scale(${Math.max(.6, 1 - n * .06)}) rotate(${(Math.random() * 16 - 8).toFixed(0)}deg)`;
+    yes.style.transform = `scale(${1 + Math.min(n, 7) * .07})`;
+    if (n < frases.length) { no.textContent = frases[n]; return; }
+    desistiu = true; clearInterval(auto);
+    no.textContent = 'Tá bom, desisto 😂';
+    setTimeout(() => { no.style.opacity = 0; no.style.pointerEvents = 'none'; }, 1400);
   };
   no.addEventListener('pointerenter', flee); no.addEventListener('pointerdown', flee); no.addEventListener('click', flee);
+  const io = new IntersectionObserver(es => {
+    if (!es[0].isIntersecting) return;
+    io.disconnect();
+    let tick = 0;
+    auto = setInterval(() => { if (tick++ >= 1) flee(); }, 1500);
+    timers.push(auto);
+  }, { threshold: .6 });
+  io.observe(ask);
   app.querySelector('.yes').onclick = () => {
     const o = el(`<div class="overlay"><div class="box">${EMB.fim.replace('class="emb"', 'class="emb" style="width:120px"')}<h2>Combinado!</h2><p>Próxima parada: bodas de ouro.<br>Feliz 5 anos, Sah. Te amo mais que tudo ao quadrado ao infinito ao cubo ❤️</p><button class="act">fechar</button></div></div>`);
     document.body.appendChild(o); o.querySelector('button').onclick = () => o.remove();
