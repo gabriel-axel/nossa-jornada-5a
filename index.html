@@ -226,7 +226,7 @@ const CAPS = [
 
 02 de novembro de 2021. Eu fui pro Village meio nervoso, te achei na Renner e, de repente, aquela noite virou outra coisa.
 
-A gente subiu pro terraço pra ver as estrelas — e eu juro que tentei olhar pro céu, mas a vista mais bonita tava do meu lado. Depois Madero, risada, conversa que não queria acabar.
+A gente subiu pro terraço pra ver as estrelas. Eu juro que tentei olhar pro céu, mas a vista mais bonita tava do meu lado. Depois Madero, risada, conversa que não queria acabar.
 
 E aí, no estacionamento, escapou um "te amo" sem querer. Você ficou vermelhinha de vergonha. Eu fiquei com aquilo na cabeça a noite inteira... e, 5 anos depois, ainda tá aqui.` }
   },
@@ -298,15 +298,17 @@ Eu nunca tive tanta certeza de nada na vida.` }
         r: ['Eu sabia!! Exijo reparação em forma de beijo 😤💋', 'Mentira, eu sou um anjo dormindo 😇', 'Guerra fria. Literalmente 🥶'] },
       { q: 'Quem disse "te amo" primeiro?', foto: 'primeiro_date_3',
         r: ['Siiim! No estacionamento do Village, sem querer 😳❤️', 'Hmm... tenta lembrar do estacionamento do Village 😏', 'Hoje a gente diz junto. Mas o primeiro foi seu 😏❤️'] },
-      { q: 'Quem escolhe onde a gente vai comer?', foto: 'aniv4_jantar',
+      { q: 'Quem escolhe onde a gente vai comer?', foto: 'pc_sorriso',
         r: ['E quase sempre acerta 🍽️', 'Depois de 40 minutos de "tanto faz" 😂', 'Depois de 40 minutos de "escolhe você" 😂'] },
       { q: 'Quem ama mais?', foto: 'noivos_2026b',
         r: ['Discordo. Mas aceito disputar isso pelos próximos 50 anos ❤️', 'Finalmente admitiu 😏❤️', 'Resposta certíssima ❤️'] },
     ]}, done),
-    carta: { foto: 'noivos_2026b', legenda: '2026 · o ano do nosso sim', texto:
+    carta: { foto: 'pc_casal', legenda: 'Punta Cana · lua de mel 🌴', texto:
 `E aí chegou 2026. E chegou o 04 de abril: o dia em que você virou minha esposa.
 
-Ainda é engraçado falar "minha esposa" — engraçado e lindo.
+Ainda é engraçado falar "minha esposa". Engraçado e lindo.
+
+Depois veio Punta Cana: mar azul, coqueiro pra todo lado e a gente de lua de mel, rindo à toa. 🌴
 
 Hoje a gente divide a casa, os sonhos, o cobertor (às vezes nem tanto 😂) e uma vida inteira pela frente.
 
@@ -321,14 +323,14 @@ Há 5 anos, numa noite de novembro, você disse "te amo" sem querer e morreu de 
 
 Hoje eu quero dizer de propósito, com calma, olhando no seu olho: eu te amo. Amo seu riso, seu jeito, suas manias. Amo a gente.
 
-Foram 1.826 dias — de date, viagem, frio, praia, pedido, casamento — e eu faria cada um deles de novo.
+Foram 1.826 dias de date, viagem, frio, praia, pedido, casamento, lua de mel... e eu faria cada um deles de novo.
 
 Feliz 5 anos. Que venham os próximos 50.`;
 
 const TODAS = ['primeiro_date_1','primeiro_date_2','inicio_balao','inicio_mesa','inicio_festa','praia_abraco','bar_selfie',
   'curitiba22_jantar2','curitiba22_beijo','curitiba22_gorro','curitiba22_lago','museu_casal','museu_surf','pedido_abraco',
   'pedido_prato','pedido_risada','pedido_anel_selfie','pedido_curitiba','aniv4_jantar','pb_2026','campo_2026','noivos_2026',
-  'noivos_2026b','colagem_jun26'];
+  'noivos_2026b','pc_casal','pc_varanda','pc_sorriso','pc_branco','pc_bikes','colagem_jun26'];
 
 const ERROS = ['Errrrou! Mas te amo mesmo assim 😘', 'Quase! Tenta de novo, momo', 'Hmm... vou fingir que não vi 🙈', 'Essa doeu 😂 tenta outra'];
 const ERROS_ORDEM = ['Hmm, não foi nessa ordem 🤔', 'Essa veio depois! 😅', 'Quase! Pensa mais um pouquinho'];
@@ -423,7 +425,7 @@ function intro() {
       <figure><img src="${F('pedido_anel_selfie')}" alt=""></figure>
       <figure><img src="${F('noivos_2026')}" alt=""></figure>
     </div>
-    <p class="kicker">02.11.2021 — 02.11.2026</p>
+    <p class="kicker">02.11.2021 → 02.11.2026</p>
     <h1>Nossa Jornada</h1>
     <p class="sub">5 anos, 5 capítulos e algumas surpresas pelo caminho.</p>
     <button class="btn" id="go">${started ? 'Continuar ❤️' : 'Começar ❤️'}</button>
@@ -488,7 +490,7 @@ function carta(i) {
   show(`${bar(`Capítulo ${i + 1} ✓`)}
     <p class="kicker center">Uma carta pra você 💌</p>
     <figure class="polaroid"><img src="${F(c.carta.foto)}" alt=""><figcaption>${c.carta.legenda}</figcaption></figure>
-    <article class="letter">${paras(c.carta.texto)}<p class="sign">— ${ELE}</p></article>
+    <article class="letter">${paras(c.carta.texto)}<p class="sign">Com amor, ${ELE}</p></article>
     <button class="btn wide" id="next">${ultimo ? 'Abrir a surpresa final 💍' : 'Próximo capítulo →'}</button>`);
   if (!S.done.includes(c.id)) { S.done.push(c.id); save(); }
   $('#next').onclick = () => map(ultimo ? CAPS.length : i + 1);
