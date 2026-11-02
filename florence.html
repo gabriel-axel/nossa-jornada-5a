@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light">
+<title>Prévia Florence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f4efe6;--ink:#2f3446;--muted:#7d7a80;--coral:#e2725b;--mustard:#f0c05a;--teal:#5e9c97;--rose:#eaa6a0;--navy:#2f3a63}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--paper);color:var(--ink);font:20px/1.35 'Patrick Hand',system-ui,sans-serif;
+  background-image:radial-gradient(rgba(47,52,70,.05) 1px,transparent 1.2px);background-size:7px 7px}
+main{max-width:440px;margin:0 auto;padding:22px 16px 60px}
+.kicker{font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:var(--coral);margin:0}
+h1{font:600 46px/1 Caveat,cursive;margin:2px 0 4px;color:var(--navy)}
+.lead{color:var(--muted);margin:0 0 18px;font-size:18px}
+.panel{background:#fff;padding:7px;border-radius:6px;margin:0 0 10px;animation:in .8s ease both}
+.panel svg{display:block;width:100%;height:auto;border-radius:3px}
+.cap{margin:4px 4px 22px;font-size:19px}
+.cap b{color:var(--coral);font-weight:400}
+@keyframes in{from{opacity:0;transform:translateY(14px)}}
+.talk{position:relative}
+.bubble{position:relative;background:#fff;border-radius:22px;padding:16px;margin:-6px 0 14px;min-height:86px;display:grid;place-items:center;
+  box-shadow:0 0 0 2px var(--ink)}
+.bubble::after{content:'';position:absolute;left:58px;top:-13px;width:22px;height:22px;background:#fff;transform:rotate(45deg);
+  box-shadow:-2px -2px 0 0 var(--ink)}
+.slots{display:flex;gap:6px;transition:gap .5s}
+.slots.joined{gap:0}
+.slot{width:74px;height:46px;border:2px dashed #cfc8bd;border-radius:10px;position:relative}
+.slot.f{border:0;animation:pop .35s}
+.slot[data-s="1"].f{background:var(--coral)} .slot[data-s="2"].f{background:var(--mustard)} .slot[data-s="3"].f{background:var(--teal)}
+.slots.joined .slot{border-radius:0} .slots.joined .slot:first-child{border-radius:10px 0 0 10px} .slots.joined .slot:last-child{border-radius:0 10px 10px 0}
+.said{position:absolute;inset:0;display:grid;place-items:center;font:600 40px Caveat,cursive;color:var(--coral);opacity:0;transition:opacity .6s}
+.said.on{opacity:1}
+.tray{display:flex;gap:14px;justify-content:center;min-height:56px;margin-bottom:6px}
+.piece{width:74px;height:46px;border:0;border-radius:10px;position:relative;cursor:pointer;transition:transform .15s}
+.piece::after{content:'';position:absolute;right:-9px;top:14px;width:18px;height:18px;border-radius:50%;background:inherit}
+.piece:active{transform:scale(.92)}
+.piece[data-s="1"]{background:var(--coral);transform:rotate(-6deg)} .piece[data-s="2"]{background:var(--mustard);transform:rotate(4deg)} .piece[data-s="3"]{background:var(--teal);transform:rotate(-3deg)}
+.piece.gone{visibility:hidden}
+.hint{text-align:center;color:var(--muted);font-size:17px;margin:0 0 18px}
+.memory{display:none;text-align:center;animation:in .8s ease both}
+.memory.on{display:block}
+.polaroid{background:#fff;padding:10px 10px 6px;width:72%;margin:6px auto 8px;transform:rotate(-3deg);box-shadow:0 10px 24px rgba(47,52,70,.18)}
+.polaroid img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
+.polaroid p{margin:6px 0 0;font:600 24px Caveat,cursive;color:var(--navy)}
+.note{background:#fff;border-radius:6px;padding:14px 16px;margin-top:26px;font-size:17px;color:var(--muted)}
+.note b{color:var(--ink);font-weight:400}
+@keyframes pop{from{transform:scale(.6);opacity:0}}
+#blush{transition:opacity .8s}
+.float{position:absolute;pointer-events:none;color:var(--coral);font-size:22px;animation:up 1.8s ease-out forwards}
+@keyframes up{to{transform:translateY(-120px) scale(1.4);opacity:0}}
+</style>
+</head>
+<body>
+<main>
+  <p class="kicker">Capítulo 1 · 2021</p>
+  <h1>O primeiro date</h1>
+  <p class="lead">prévia do estilo Florence</p>
+
+  <div class="panel">
+    <svg viewBox="20 20 310 400" role="img" aria-label="Biel e Sah de costas no terraço do Village, olhando as estrelas">
+      <rect x="20" y="20" width="310" height="400" fill="#2f3a63"/>
+      <rect x="20" y="200" width="310" height="100" fill="#3b4778"/>
+      <rect x="20" y="270" width="310" height="80" fill="#55598c"/>
+      <circle cx="278" cy="72" r="20" fill="#f6e7c1"/><circle cx="287" cy="65" r="17" fill="#2f3a63"/>
+      <g fill="#f6e7c1"><circle cx="45" cy="50" r="1.5"/><circle cx="80" cy="85" r="1.2"/><circle cx="230" cy="40" r="1.6"/><circle cx="305" cy="140" r="1.3"/><circle cx="60" cy="170" r="1.4"/><circle cx="250" cy="180" r="1.2"/><circle cx="110" cy="40" r="1.1"/><circle cx="300" cy="225" r="1.4"/><circle cx="40" cy="240" r="1.2"/><circle cx="205" cy="230" r="1"/><circle cx="90" cy="215" r="1.3"/></g>
+      <path d="M175 160 L150 138 L142 112 L160 98 L175 112 L190 98 L208 112 L200 138 Z" fill="none" stroke="#f6e7c1" stroke-width="1" opacity=".4"/>
+      <g fill="#f6e7c1"><circle cx="175" cy="160" r="3"/><circle cx="150" cy="138" r="2.4"/><circle cx="142" cy="112" r="2.6"/><circle cx="160" cy="98" r="2.2"/><circle cx="175" cy="112" r="2.8"/><circle cx="190" cy="98" r="2.2"/><circle cx="208" cy="112" r="2.6"/><circle cx="200" cy="138" r="2.4"/></g>
+      <g fill="#262c4f"><rect x="20" y="300" width="40" height="50"/><rect x="58" y="285" width="34" height="65"/><rect x="92" y="308" width="50" height="42"/><rect x="230" y="292" width="38" height="58"/><rect x="266" y="312" width="64" height="38"/></g>
+      <g fill="#f2cc8f"><rect x="66" y="295" width="5" height="6"/><rect x="78" y="310" width="5" height="6"/><rect x="100" y="318" width="5" height="6"/><rect x="240" y="302" width="5" height="6"/><rect x="252" y="318" width="5" height="6"/><rect x="290" y="322" width="5" height="6"/></g>
+      <rect x="20" y="342" width="310" height="9" fill="#e9dcc6"/>
+      <g fill="#e9dcc6"><rect x="34" y="351" width="6" height="40"/><rect x="74" y="351" width="6" height="40"/><rect x="270" y="351" width="6" height="40"/><rect x="310" y="351" width="6" height="40"/></g>
+      <rect x="20" y="388" width="310" height="32" fill="#c9b49b"/>
+      <rect x="104" y="368" width="152" height="11" rx="3" fill="#8b6a52"/>
+      <rect x="116" y="379" width="7" height="22" fill="#6f5442"/><rect x="237" y="379" width="7" height="22" fill="#6f5442"/>
+      <path d="M118 370 C118 346 130 334 150 334 C170 334 182 346 182 370 Z" fill="#f1e6d6"/>
+      <path d="M186 370 C186 340 197 327 214 327 C231 327 243 340 243 370 Z" fill="#b0714a"/>
+      <rect x="207" y="302" width="14" height="28" fill="#e3b08e"/>
+      <ellipse cx="191" cy="294" rx="4" ry="6" fill="#e3b08e"/><ellipse cx="236" cy="294" rx="4" ry="6" fill="#e3b08e"/>
+      <g fill="#2d221e"><circle cx="213" cy="290" r="23"/><circle cx="198" cy="273" r="9"/><circle cx="213" cy="267" r="10"/><circle cx="228" cy="273" r="9"/><circle cx="234" cy="285" r="7"/><circle cx="193" cy="285" r="7"/></g>
+      <g transform="rotate(14 150 330)">
+        <path d="M127 300 C120 330 122 352 128 372 C136 368 142 374 150 370 C158 374 164 368 172 372 C178 352 180 330 173 300 Z" fill="#7b4a33"/>
+        <circle cx="150" cy="298" r="23" fill="#7b4a33"/>
+      </g>
+      <path d="M194 342 C176 333 150 332 126 345" fill="none" stroke="#b0714a" stroke-width="12" stroke-linecap="round"/>
+      <path transform="translate(180 236) scale(1.3)" d="M0 4 C0 0 -6 -2 -8 2 C-10 6 -4 10 0 14 C4 10 10 6 8 2 C6 -2 0 0 0 4 Z" fill="#e8a0a0"/>
+    </svg>
+  </div>
+  <p class="cap">Terraço do Village. A gente olhando as estrelas... <b>e eu olhando pra você.</b></p>
+
+  <section class="talk">
+    <div class="panel">
+      <svg viewBox="350 20 310 400" role="img" aria-label="Retrato de Biel e Sah sorrindo, ela com a cabeça no ombro dele">
+        <rect x="350" y="20" width="310" height="400" fill="#f3dccd"/>
+        <circle cx="505" cy="210" r="125" fill="#ebbfae"/>
+        <rect x="350" y="370" width="310" height="50" fill="#e4b9a5"/>
+        <path transform="translate(395 80) scale(1.4)" d="M0 4 C0 0 -6 -2 -8 2 C-10 6 -4 10 0 14 C4 10 10 6 8 2 C6 -2 0 0 0 4 Z" fill="#e07a7a"/>
+        <path transform="translate(618 100) scale(1.1)" d="M0 4 C0 0 -6 -2 -8 2 C-10 6 -4 10 0 14 C4 10 10 6 8 2 C6 -2 0 0 0 4 Z" fill="#f2cc8f"/>
+        <path d="M478 420 C480 362 508 340 550 340 C592 340 620 362 622 420 Z" fill="#b0714a"/>
+        <rect x="538" y="300" width="24" height="46" fill="#e3b08e"/>
+        <ellipse cx="503" cy="262" rx="7" ry="10" fill="#e3b08e"/><ellipse cx="597" cy="262" rx="7" ry="10" fill="#e3b08e"/>
+        <ellipse cx="550" cy="255" rx="46" ry="54" fill="#efc3a0"/>
+        <path d="M505 256 C505 300 524 316 550 316 C576 316 595 300 595 256 C590 279 575 290 550 290 C525 290 510 279 505 256 Z" fill="#3a2a24"/>
+        <path d="M536 283 Q550 297 564 283 Z" fill="#fff"/>
+        <path d="M531 280 Q550 271 569 280 Q550 285 531 280 Z" fill="#3a2a24"/>
+        <circle cx="520" cy="268" r="7" fill="#e89a8a" opacity=".55"/><circle cx="580" cy="268" r="7" fill="#e89a8a" opacity=".55"/>
+        <g fill="none" stroke="#2d221e" stroke-linecap="round"><path d="M527 249 Q534 242 541 249" stroke-width="3"/><path d="M559 249 Q566 242 573 249" stroke-width="3"/><path d="M524 236 L540 232" stroke-width="4"/><path d="M560 232 L576 236" stroke-width="4"/></g>
+        <g fill="#2d221e"><path d="M502 252 C496 205 528 186 552 190 C584 184 607 206 598 254 C592 232 580 220 562 216 C545 224 520 224 508 234 Z"/><circle cx="515" cy="208" r="14"/><circle cx="535" cy="195" r="16"/><circle cx="560" cy="192" r="16"/><circle cx="583" cy="203" r="14"/><circle cx="596" cy="222" r="10"/></g>
+        <path d="M403 262 C392 330 402 382 395 420 L522 420 C514 380 520 330 507 264 C499 222 411 222 403 262 Z" fill="#7b4a33"/>
+        <path d="M392 420 C396 376 420 360 455 360 C490 360 512 378 516 420 Z" fill="#f1e6d6"/>
+        <rect x="445" y="318" width="20" height="46" fill="#f0c4a6"/>
+        <g transform="rotate(10 455 290)">
+          <ellipse cx="455" cy="290" rx="40" ry="48" fill="#f6d2b8"/>
+          <path d="M413 288 C409 246 440 232 463 236 C487 238 501 256 498 288 C490 263 471 254 452 257 C439 263 424 273 413 288 Z" fill="#7b4a33"/>
+          <g id="blush" opacity=".55" fill="#e89a8a"><circle cx="436" cy="304" r="7"/><circle cx="476" cy="304" r="7"/></g>
+          <g fill="none" stroke="#3b241a" stroke-width="3" stroke-linecap="round"><path d="M434 291 Q441 285 448 291"/><path d="M462 291 Q469 285 476 291"/></g>
+          <path d="M447 311 Q456 320 465 311" fill="none" stroke="#b5523f" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="416" cy="302" r="3" fill="#f2cc8f"/>
+        </g>
+        <path d="M404 300 C396 342 412 370 401 412 L422 408 C430 370 413 342 419 306 Z" fill="#6e4330"/>
+      </svg>
+    </div>
+    <div class="bubble">
+      <div class="slots"><span class="slot" data-s="1"></span><span class="slot" data-s="2"></span><span class="slot" data-s="3"></span></div>
+      <div class="said">te amo... 😳</div>
+    </div>
+    <div class="tray">
+      <button class="piece" data-s="2" aria-label="peça amarela"></button>
+      <button class="piece" data-s="3" aria-label="peça verde"></button>
+      <button class="piece" data-s="1" aria-label="peça vermelha"></button>
+    </div>
+    <p class="hint" id="hint">No estacionamento, na despedida... toque nas peças pra montar o que ela disse.</p>
+  </section>
+
+  <section class="memory" id="memory">
+    <p class="kicker">memória desbloqueada</p>
+    <div class="polaroid"><img src="fotos/primeiro_date_1.jpg" alt=""><p>02.11.2021</p></div>
+    <p class="cap">Você ficou morrendo de vergonha. Eu fiquei morrendo de amor.</p>
+  </section>
+
+  <div class="note">
+    <b>Como seria o jogo inteiro:</b> cada capítulo com cenas desenhadas assim, os mini-jogos no mesmo traço, e as fotos de verdade aparecendo como "memórias" depois de cada cena. Igual ao Florence, as conversas viram quebra-cabeça: no 1º date têm várias peças, e vão ficando mais fáceis conforme vocês se conhecem.
+  </div>
+</main>
+<script>
+const pieces = [...document.querySelectorAll('.piece')];
+let filled = 0;
+pieces.forEach(p => p.onclick = () => {
+  const s = p.dataset.s;
+  document.querySelector(`.slot[data-s="${s}"]`).classList.add('f');
+  p.classList.add('gone');
+  if (++filled === pieces.length) finish();
+});
+function finish() {
+  const slots = document.querySelector('.slots');
+  setTimeout(() => slots.classList.add('joined'), 250);
+  setTimeout(() => { slots.style.opacity = 0; document.querySelector('.said').classList.add('on'); }, 900);
+  setTimeout(() => {
+    document.getElementById('blush').setAttribute('opacity', '1');
+    document.getElementById('hint').textContent = 'ops... saiu sem querer 🙈';
+    const b = document.querySelector('.bubble');
+    for (let i = 0; i < 6; i++) {
+      const h = document.createElement('span'); h.className = 'float'; h.textContent = '♥';
+      h.style.left = 20 + Math.random() * 80 + '%'; h.style.top = '10px'; h.style.animationDelay = i * .15 + 's';
+      b.appendChild(h);
+    }
+  }, 1300);
+  setTimeout(() => { const m = document.getElementById('memory'); m.classList.add('on'); m.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 2600);
+}
+</script>
+</body>
+</html>

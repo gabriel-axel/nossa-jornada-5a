@@ -107,6 +107,7 @@ h2{font-size:24px}
 .opt:disabled{cursor:default}
 .opt.ok{background:#e4f6ec;border-color:var(--ok);color:#1d6b47}
 .opt.no{background:#fde8ec;border-color:var(--rose);opacity:.6;animation:shake .4s}
+.opt.hmm{background:#fff4dc;border-color:var(--gold);animation:shake .4s}
 .opt.sel{background:#ffe4ea;border-color:var(--rose)}
 .bubble{background:#ffe9ef;border-radius:18px;padding:14px 16px;margin:14px 0 16px;font-weight:700;color:var(--wine);animation:pop .35s}
 @keyframes shake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
@@ -215,8 +216,8 @@ const CAPS = [
         ok: 'Na Renner! Melhor compra da minha vida e eu nem comprei nada 😂' },
       { q: 'O que a gente ficou fazendo no terraço do Village?', op: ['Vendo as estrelas', 'Tomando sorvete', 'Jogando Uno', 'Fugindo do segurança'],
         ok: 'Vendo as estrelas... e eu, olhando pra você ✨' },
-      { q: 'Onde a gente foi jantar depois?', op: ['Outback', 'Madero', 'Coco Bambu', 'McDonald’s'],
-        ok: 'Outback! 🦘' },
+      { q: 'Onde a gente foi jantar depois?', op: ['Madero', 'Outback', 'Coco Bambu', 'McDonald’s'],
+        ok: 'Madero! 🍔' },
       { q: 'E no estacionamento, na hora da despedida... o que escapou sem querer?', op: ['“Te amo”', '“Tchau, querido”', '“Me liga amanhã”', '“Cadê o ticket?”'],
         ok: '“Te amo” 😳 Você ficou morrendo de vergonha... e eu, morrendo de amor ❤️' },
     ]}, () => scratch({ foto: 'primeiro_date_2', titulo: 'Raspa pra ver a gente no dia 1 👆', legenda: 'Nossa primeira foto juntos · 02.11.2021' }, done)),
@@ -225,7 +226,7 @@ const CAPS = [
 
 02 de novembro de 2021. Eu fui pro Village meio nervoso, te achei na Renner e, de repente, aquela noite virou outra coisa.
 
-A gente subiu pro terraço pra ver as estrelas — e eu juro que tentei olhar pro céu, mas a vista mais bonita tava do meu lado. Depois Outback, risada, conversa que não queria acabar.
+A gente subiu pro terraço pra ver as estrelas — e eu juro que tentei olhar pro céu, mas a vista mais bonita tava do meu lado. Depois Madero, risada, conversa que não queria acabar.
 
 E aí, no estacionamento, escapou um "te amo" sem querer. Você ficou vermelhinha de vergonha. Eu fiquei com aquilo na cabeça a noite inteira... e, 5 anos depois, ainda tá aqui.` }
   },
@@ -507,12 +508,19 @@ function quiz({ perguntas }, done) {
         <p class="bubble hidden"></p>
         <button class="btn wide hidden" id="nx">${i < perguntas.length - 1 ? 'Próxima →' : 'Continuar ✨'}</button>
       </section>`);
+    let duvida = null;
+    const bb = $('.bubble');
+    const say = t => { bb.textContent = t; bb.classList.remove('hidden'); bb.style.animation = 'none'; void bb.offsetWidth; bb.style.animation = ''; };
     $$('.opt').forEach(b => b.onclick = () => {
       if (+b.dataset.j === 0) {
-        b.classList.add('ok'); $$('.opt').forEach(x => x.disabled = true);
-        const bb = $('.bubble'); bb.textContent = q.ok; bb.classList.remove('hidden');
-        $('#nx').classList.remove('hidden'); burstAt(b);
-      } else { b.classList.add('no'); b.disabled = true; toast(pick(ERROS)); }
+        b.classList.add('ok'); $$('.opt').forEach(x => { x.disabled = true; x.classList.remove('hmm'); });
+        say(q.ok); $('#nx').classList.remove('hidden'); burstAt(b);
+      } else if (duvida !== b) {
+        $$('.opt.hmm').forEach(x => x.classList.remove('hmm'));
+        duvida = b; b.classList.add('hmm'); say('Tem certeza? 👀');
+      } else {
+        duvida = null; b.classList.remove('hmm'); b.classList.add('no'); b.disabled = true; say(pick(ERROS));
+      }
     });
     $('#nx').onclick = () => { i++; i < perguntas.length ? render() : done(); };
   }
