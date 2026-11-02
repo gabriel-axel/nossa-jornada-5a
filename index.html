@@ -182,7 +182,8 @@ function biel(o = {}) {
     : `<rect x="-33" y="-112" width="14" height="18" rx="6" fill="${cam}"/><rect x="19" y="-112" width="14" height="18" rx="6" fill="${cam}"/>`;
   const topo = o.gorro
     ? `<path d="M-21 -146 C-21 -170 21 -170 21 -146 Z" fill="#4a5375"/><rect x="-22" y="-152" width="44" height="9" rx="4" fill="#3b4256"/><circle cx="0" cy="-170" r="5" fill="#3b4256"/>`
-    : `<g fill="${cab}"><path d="M-20 -143 C-21 -161 21 -161 20 -143 C14 -152 -14 -152 -20 -143 Z"/><circle cx="-12" cy="-157" r="9"/><circle cx="0" cy="-161" r="10"/><circle cx="12" cy="-157" r="9"/><circle cx="18" cy="-148" r="6"/><circle cx="-18" cy="-148" r="6"/></g>`;
+    : `<path d="M-21 -138 C-24 -158 -12 -168 2 -167 C18 -166 25 -156 21 -138 C19 -146 13 -150 6 -150 C-4 -152 -14 -148 -21 -138 Z" fill="${cab}"/>
+       <path d="M-8 -161 C0 -158 8 -157 16 -158" fill="none" stroke="#4a3a33" stroke-width="1.5" stroke-linecap="round"/>`;
   const olhos = o.feliz
     ? `<g fill="none" stroke="${cab}" stroke-width="2" stroke-linecap="round"><path d="M-10 -141 Q-7 -145 -4 -141"/><path d="M4 -141 Q7 -145 10 -141"/></g>`
     : `<circle cx="-7" cy="-142" r="2" fill="${cab}"/><circle cx="7" cy="-142" r="2" fill="${cab}"/>`;
@@ -219,11 +220,11 @@ function sah(o = {}) {
     ? `<g fill="none" stroke="#3b241a" stroke-width="1.8" stroke-linecap="round"><path d="M-9 -127 Q-6 -131 -3 -127"/><path d="M3 -127 Q6 -131 9 -127"/></g>`
     : `<circle cx="-6" cy="-127" r="1.8" fill="#3b241a"/><circle cx="6" cy="-127" r="1.8" fill="#3b241a"/>`;
   return `${pernas}
-    <path d="M-23 -132 C-27 -104 -23 -96 -19 -92 L19 -92 C23 -96 27 -104 23 -132 Z" fill="${cab}"/>
+    <path d="M-24 -130 C-26 -152 26 -152 24 -130 C27 -106 24 -96 20 -92 L-20 -92 C-24 -96 -27 -106 -24 -130 Z" fill="${cab}"/>
     ${bracos}${corpo}${buque}
     <rect x="-4" y="-112" width="8" height="8" fill="#f0c4a6"/>
     <circle cx="0" cy="-128" r="18" fill="${pele}"/>
-    <path d="M-19 -126 C-21 -148 19 -150 19 -126 C13 -137 1 -141 -8 -137 C-12 -134 -16 -131 -19 -126 Z" fill="${cab}"/>
+    <path d="M-19 -124 C-22 -150 22 -152 19 -124 C16 -133 8 -137 -1 -136 C-9 -135 -16 -131 -19 -124 Z" fill="${cab}"/>
     ${gorro}${olhos}
     <path d="M-3 -119 Q0 -116 3 -119" fill="none" stroke="#b5523f" stroke-width="1.6" stroke-linecap="round"/>
     <g ${o.blushId ? `id="${o.blushId}"` : ''} fill="#e89a8a" opacity=".55"><circle cx="-10" cy="-121" r="3.2"/><circle cx="10" cy="-121" r="3.2"/></g>`;
@@ -257,7 +258,8 @@ function retrato(oculos = false, anel = false, guardanapo = false) {
     <circle cx="520" cy="268" r="7" fill="#e89a8a" opacity=".55"/><circle cx="580" cy="268" r="7" fill="#e89a8a" opacity=".55"/>
     <g fill="none" stroke="#2d221e" stroke-linecap="round"><path d="M527 249 Q534 242 541 249" stroke-width="3"/><path d="M559 249 Q566 242 573 249" stroke-width="3"/><path d="M524 233 L540 229" stroke-width="4"/><path d="M560 229 L576 233" stroke-width="4"/></g>
     ${oculos ? '<g fill="none" stroke="#2d221e" stroke-width="3"><circle cx="534" cy="247" r="13"/><circle cx="566" cy="247" r="13"/><path d="M547 247 L553 247"/></g>' : ''}
-    <g fill="#2d221e"><path d="M502 252 C496 205 528 186 552 190 C584 184 607 206 598 254 C592 232 580 220 562 216 C545 224 520 224 508 234 Z"/><circle cx="515" cy="208" r="14"/><circle cx="535" cy="195" r="16"/><circle cx="560" cy="192" r="16"/><circle cx="583" cy="203" r="14"/><circle cx="596" cy="222" r="10"/></g>
+    <path d="M500 256 C494 206 522 182 552 182 C584 182 606 204 600 256 C596 236 586 222 570 216 C548 212 524 220 506 238 Z" fill="#2d221e"/>
+    <path d="M528 198 C546 192 566 192 584 202" fill="none" stroke="#4a3a33" stroke-width="3" stroke-linecap="round"/>
     <path d="M403 262 C392 330 402 382 395 420 L522 420 C514 380 520 330 507 264 C499 222 411 222 403 262 Z" fill="#7b4a33"/>
     <path d="M392 420 C396 376 420 360 455 360 C490 360 512 378 516 420 Z" fill="#f1e6d6"/>
     <rect x="445" y="318" width="20" height="46" fill="#f0c4a6"/>
@@ -301,7 +303,7 @@ function terraco(interativo) {
     <path d="M118 370 C118 346 130 334 150 334 C170 334 182 346 182 370 Z" fill="#f1e6d6"/>
     <path d="M186 370 C186 340 197 327 214 327 C231 327 243 340 243 370 Z" fill="#b0714a"/>
     <rect x="207" y="302" width="14" height="28" fill="#e3b08e"/><ellipse cx="191" cy="294" rx="4" ry="6" fill="#e3b08e"/><ellipse cx="236" cy="294" rx="4" ry="6" fill="#e3b08e"/>
-    <g fill="#2d221e"><circle cx="213" cy="290" r="23"/><circle cx="198" cy="273" r="9"/><circle cx="213" cy="267" r="10"/><circle cx="228" cy="273" r="9"/><circle cx="234" cy="285" r="7"/><circle cx="193" cy="285" r="7"/></g>
+    <path d="M190 296 C186 270 198 262 213 262 C228 262 240 270 236 296 C230 304 196 304 190 296 Z" fill="#2d221e"/>
     <g transform="rotate(14 150 330)"><path d="M127 300 C120 330 122 352 128 372 C136 368 142 374 150 370 C158 374 164 368 172 372 C178 352 180 330 173 300 Z" fill="#7b4a33"/><circle cx="150" cy="298" r="23" fill="#7b4a33"/></g>
     <path d="M194 342 C176 333 150 332 126 345" fill="none" stroke="#b0714a" stroke-width="12" stroke-linecap="round"/>
     <g id="skyHeart" opacity="${interativo ? 0 : 1}" style="transition:opacity .8s">${heart(180, 236, 1.3, '#e8a0a0')}</g>
