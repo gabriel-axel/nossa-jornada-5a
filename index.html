@@ -81,6 +81,8 @@ h2{font:600 34px/1.05 Caveat,cursive;margin:4px 0 8px;color:var(--navy)}
 /* interações das cenas */
 .tap{cursor:pointer}
 .walk,.slide{transition:transform 1.1s cubic-bezier(.45,.05,.3,1)}
+.gira{transform-origin:0 0;animation:gira .7s linear infinite}
+@keyframes gira{to{transform:rotate(360deg)}}
 .boing{animation:boing .55s cubic-bezier(.3,1.6,.5,1) both}
 @keyframes boing{0%{transform:translateY(-26px)}60%{transform:translateY(4px)}100%{transform:translateY(0)}}
 .store{cursor:pointer;transition:opacity .3s}
@@ -242,7 +244,7 @@ function sahPulo() {
 }
 
 /* retrato (capa do jogo e resposta do pedido) */
-function retrato(oculos = false, anel = false) {
+function retrato(oculos = false, anel = false, guardanapo = false) {
   return `<svg viewBox="350 20 310 400" role="img" aria-label="Biel e Sah sorrindo, ela com a cabeça no ombro dele">
     <rect x="350" y="20" width="310" height="400" fill="#f3dccd"/><circle cx="505" cy="210" r="125" fill="#ebbfae"/><rect x="350" y="370" width="310" height="50" fill="#e4b9a5"/>
     ${heart(395, 80, 1.4, '#e07a7a')}${heart(618, 100, 1.1, '#f2cc8f')}${heart(596, 52, .8, '#e07a7a')}
@@ -268,7 +270,16 @@ function retrato(oculos = false, anel = false) {
       <circle cx="416" cy="302" r="3" fill="#f2cc8f"/>
     </g>
     <path d="M404 300 C396 342 412 370 401 412 L422 408 C430 370 413 342 419 306 Z" fill="#6e4330"/>
-    ${anel ? `<g transform="translate(432 392)"><path d="M-14 26 C-16 6 -10 -8 0 -10 C10 -8 16 6 14 26 Z" fill="#f6d2b8"/><circle cx="0" cy="2" r="6" fill="none" stroke="#f0c05a" stroke-width="3"/><path d="M-4 -6 L0 -12 L4 -6 L0 -3 Z" fill="#cfeaf2"/><g stroke="#f0c05a" stroke-width="2" stroke-linecap="round"><path d="M-12 -14 L-16 -18"/><path d="M12 -14 L16 -18"/><path d="M0 -18 L0 -24"/></g></g>` : ''}
+    ${guardanapo ? `<g id="napkin" opacity="0" style="transition:opacity .3s">
+      <path d="M404 394 C392 356 384 318 380 284" fill="none" stroke="#e8dccb" stroke-width="20" stroke-linecap="round"/>
+      <circle cx="379" cy="276" r="11" fill="#f6d2b8"/><circle cx="386" cy="282" r="4" fill="none" stroke="#f0c05a" stroke-width="2.5"/>
+      <g fill="none" stroke="#e2725b" stroke-width="2.5" stroke-linecap="round" opacity=".7"><path d="M330 222 Q379 194 428 222"/><path d="M344 206 Q379 186 414 206"/></g>
+      <g transform="translate(379 262)"><g class="gira">
+        <path d="M0 0 C13 -20 39 -32 61 -26 C51 -16 53 -6 45 2 C31 -2 15 0 0 0 Z" fill="#fff" stroke="#e6dccb" stroke-width="2"/>
+        <path d="M0 0 C-13 -20 -39 -32 -61 -26 C-51 -16 -53 -6 -45 2 C-31 -2 -15 0 0 0 Z" fill="#fff" stroke="#e6dccb" stroke-width="2"/>
+      </g></g>
+    </g>` : ''}
+    ${anel ? `<g id="anelMao" style="transition:opacity .3s" transform="translate(432 392)"><path d="M-14 26 C-16 6 -10 -8 0 -10 C10 -8 16 6 14 26 Z" fill="#f6d2b8"/><circle cx="0" cy="2" r="6" fill="none" stroke="#f0c05a" stroke-width="3"/><path d="M-4 -6 L0 -12 L4 -6 L0 -3 Z" fill="#cfeaf2"/><g stroke="#f0c05a" stroke-width="2" stroke-linecap="round"><path d="M-12 -14 L-16 -18"/><path d="M12 -14 L16 -18"/><path d="M0 -18 L0 -24"/></g></g>` : ''}
   </svg>`;
 }
 
@@ -783,10 +794,12 @@ function caixinha(host, done) {
 }
 
 function resposta(host, done) {
-  host.innerHTML = `<div class="panel">${retrato(true, true)}</div><p class="cap">E a resposta dela...</p>`;
+  host.innerHTML = `<div class="panel">${retrato(true, true, true)}</div><p class="cap">E a resposta dela...</p>`;
   frase(host, { palavras: ['S', 'I', 'I', 'I', 'M', '!!!'], side: 'l', final: 'SIIIM!!! 💍', dica: 'monte a resposta dela, letra por letra' }, () => {
     host.querySelector('#blushR').setAttribute('opacity', 1);
-    host.querySelector('.cap').innerHTML = 'O sim mais bonito que eu já ouvi. <b>Noivos!</b>';
+    host.querySelector('#anelMao').setAttribute('opacity', 0);
+    host.querySelector('#napkin').setAttribute('opacity', 1);
+    host.querySelector('.cap').innerHTML = 'O sim mais bonito que eu já ouvi... <b>girando o guardanapo pra comemorar 😂 Noivos!</b>';
     done();
   });
 }
